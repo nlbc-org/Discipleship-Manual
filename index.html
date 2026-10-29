@@ -340,9 +340,9 @@ d.setAttribute("data-theme",t)})();
     .card{padding:18px 18px}
   }
 
-  /* Light mode: lesson cards use the same soft mint + green bar as the Six Goals header */
-  :root:not([data-theme="dark"]) .card{background:var(--mint);border-left-color:var(--fern)}
-  :root:not([data-theme="dark"]) .card:hover,:root:not([data-theme="dark"]) .card:active{background:#e9f7e5;border-left-color:var(--moss)}
+  /* Light mode: incomplete lessons are white; completed lessons stay sage green */
+  :root:not([data-theme="dark"]) .card{background:#ffffff;border-left-color:var(--fern)}
+  :root:not([data-theme="dark"]) .card:hover,:root:not([data-theme="dark"]) .card:active{background:#f7faf5;border-left-color:var(--moss)}
   :root:not([data-theme="dark"]) .card.done{background:var(--sage);border-left-color:var(--moss)}
 
   /* Six Goals: always visible, centered title, 2-column grid on wide screens */
