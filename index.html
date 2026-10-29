@@ -317,8 +317,8 @@ d.setAttribute("data-theme",t)})();
   .lt-search .lt-btn[hidden]{display:none}
   mark.sr{background:rgba(255,170,40,.50);color:inherit;border-radius:3px;padding:1px 0;-webkit-box-decoration-break:clone;box-decoration-break:clone}
   mark.sr.cur{background:rgba(255,120,0,.85);outline:2px solid #e07000;outline-offset:0}
-  :root[data-theme="dark"] mark.sr{background:rgba(255,170,40,.38)}
-  :root[data-theme="dark"] mark.sr.cur{background:rgba(255,140,20,.75);outline-color:#ffb24d}
+  :root[data-theme="dark"] mark.sr{background:rgba(255,170,40,.50)}
+  :root[data-theme="dark"] mark.sr.cur{background:rgba(255,140,20,.85);outline-color:#ffb24d}
 
   /* fill-in-the-blank fields */
   input.blank{font:inherit;font-size:max(16px,1em);color:var(--bark);background:transparent;
@@ -348,6 +348,20 @@ d.setAttribute("data-theme",t)})();
   /* Six Goals: always visible, centered title, 2-column grid on wide screens */
   .goals{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin:18px 0 48px}
   @media (max-width:640px){.goals{grid-template-columns:1fr;margin-bottom:32px}}
+
+/* Bible verse pop-up */
+.bible-ref-link{color:inherit;text-decoration:none;cursor:pointer;font-weight:inherit}
+.bible-ref-link:hover{opacity:.82}
+#bibleVerseModal{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.58)}
+#bibleVerseModal.open{display:flex}
+.bible-verse-card{width:min(560px,100%);max-height:min(78vh,700px);overflow:auto;background:var(--card,#fff);color:var(--text,#222);border:1px solid rgba(128,128,128,.25);border-radius:18px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.28)}
+.bible-verse-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.bible-verse-title{font-size:1.2rem;font-weight:700;margin:0 0 6px}
+.bible-verse-subtitle{font-size:.85rem;opacity:.72;margin:0 0 16px}
+#bibleVerseText{white-space:pre-line;line-height:1.85;font-size:1rem}
+#bibleVerseStatus{font-size:.9rem;opacity:.75;margin-top:12px}
+#bibleVerseClose{border:0;border-radius:50%;width:36px;height:36px;flex:0 0 36px;font-size:1.4rem;cursor:pointer;background:rgba(128,128,128,.15);color:inherit}
+
 </style>
 </head>
 <body>
@@ -1958,7 +1972,157 @@ $("goals").innerHTML = GOALS.map(g => {
 
 
 
+
+/* ===== Tap a Bible reference to read the full KJV verse ===== */
+document.addEventListener("DOMContentLoaded",()=>{
+  const body = document.getElementById("lBody");
+  const modal = document.getElementById("bibleVerseModal");
+  const title = document.getElementById("bibleVerseTitle");
+  const refLabel = document.getElementById("bibleVerseRef");
+  const verseText = document.getElementById("bibleVerseText");
+  const status = document.getElementById("bibleVerseStatus");
+  const closeBtn = document.getElementById("bibleVerseClose");
+  if(!body || !modal) return;
+
+  // Bible book names and common abbreviations (including Prov. and Psalm/Psalms).
+  const books = [
+    "1\\s*Samuel","2\\s*Samuel","1\\s*Kings","2\\s*Kings","1\\s*Chronicles","2\\s*Chronicles",
+    "1\\s*Corinthians","2\\s*Corinthians","1\\s*Thessalonians","2\\s*Thessalonians","1\\s*Timothy","2\\s*Timothy",
+    "1\\s*Peter","2\\s*Peter","1\\s*John","2\\s*John","3\\s*John","Song of Solomon",
+    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","Ezra","Nehemiah","Esther","Job",
+    "Psalms?","Psalm","Prov(?:erbs?)?\\.?","Proverbs","Ecclesiastes","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel",
+    "Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi",
+    "Matthew","Mark","Luke","John","Acts","Romans","Galatians","Ephesians","Philippians","Colossians","Jude","Revelation"
+  ];
+  const bookPattern = books.sort((a,b)=>b.length-a.length).join("|");
+  // Includes references like "Prov. 7:2; 25:11" as one clickable reference.
+  const refRegex = new RegExp("\\b(" + bookPattern + ")\\s+\\d{1,3}:\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3}(?::\\d{1,3})?)?(?:\\s*[,;]\\s*(?:[A-Za-z.]+\\s+)?\\d{1,3}:\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)*","gi");
+
+  function linkReferences(root){
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node){
+        const parent = node.parentElement;
+        if(!parent || parent.closest("a,button,input,textarea,select,script,style,.bible-ref-link,mark")) return NodeFilter.FILTER_REJECT;
+        refRegex.lastIndex = 0;
+        return refRegex.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes=[]; let n;
+    while((n=walker.nextNode())) nodes.push(n);
+    nodes.forEach(node=>{
+      const text=node.nodeValue;
+      const re=new RegExp(refRegex.source,"gi");
+      const frag=document.createDocumentFragment(); let last=0, m;
+      while((m=re.exec(text))){
+        frag.append(document.createTextNode(text.slice(last,m.index)));
+        const span=document.createElement("span");
+        span.className="bible-ref-link"; span.textContent=m[0]; span.tabIndex=0;
+        span.setAttribute("role","button"); span.setAttribute("aria-label","Read "+m[0]+" in the King James Bible");
+        span.dataset.bibleRef=m[0]; frag.append(span); last=re.lastIndex;
+      }
+      frag.append(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag,node);
+    });
+  }
+
+  function openModal(ref){
+    modal.classList.add("open");
+    document.body.style.overflow="hidden";
+    title.textContent="King James Version (KJV)";
+    refLabel.textContent=ref;
+    verseText.textContent="";
+    status.textContent="Loading verse…";
+    closeBtn.focus();
+
+    // Normalize abbreviations and fetch each reference separately. This also handles
+    // combined references such as "Prov. 7:2; 25:11" without sending the whole string to the API.
+    function splitReferences(raw){
+      const clean = raw.replace(/[–—]/g,"-").replace(/\s+/g," ").trim();
+      const first = clean.match(/^(.+?)\s+(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)(.*)$/i);
+      if(!first) return [clean];
+      const book = canonicalBook(first[1]);
+      const refs = [book + " " + first[2].replace(/\s*-\s*/g,"-")];
+      const rest = first[3] || "";
+      rest.split(/[;,]/).forEach(part=>{
+        const piece = part.trim();
+        if(!piece) return;
+        const withBook = piece.match(/^(.+?)\s+(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)$/i);
+        const chapterVerse = piece.match(/^(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)$/);
+        if(withBook) refs.push(canonicalBook(withBook[1]) + " " + withBook[2].replace(/\s*-\s*/g,"-"));
+        else if(chapterVerse) refs.push(book + " " + chapterVerse[1].replace(/\s*-\s*/g,"-"));
+      });
+      return [...new Set(refs)];
+    }
+    function canonicalBook(rawBook){
+      const b = rawBook.replace(/\./g,"").replace(/\s+/g," ").trim().toLowerCase();
+      const aliases = {
+        "prov":"Proverbs", "proverb":"Proverbs", "proverbs":"Proverbs",
+        "psalm":"Psalms", "psalms":"Psalms",
+        "song of solomon":"Song of Solomon", "song of songs":"Song of Solomon",
+        "rev":"Revelation", "revelation":"Revelation",
+        "gen":"Genesis", "ex":"Exodus", "deut":"Deuteronomy", "ps":"Psalms",
+        "matt":"Matthew", "mk":"Mark", "lk":"Luke", "jn":"John", "rom":"Romans",
+        "1 cor":"1 Corinthians", "2 cor":"2 Corinthians", "1 thess":"1 Thessalonians", "2 thess":"2 Thessalonians",
+        "1 tim":"1 Timothy", "2 tim":"2 Timothy", "1 pet":"1 Peter", "2 pet":"2 Peter",
+        "1 sam":"1 Samuel", "2 sam":"2 Samuel", "1 kings":"1 Kings", "2 kings":"2 Kings",
+        "1 chr":"1 Chronicles", "2 chr":"2 Chronicles"
+      };
+      if(aliases[b]) return aliases[b];
+      return rawBook.replace(/\./g,"").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase());
+    }
+    const refs = splitReferences(ref);
+    Promise.all(refs.map(apiRef =>
+      fetch("https://bible-api.com/"+encodeURIComponent(apiRef)+"?translation=kjv")
+        .then(r=>{if(!r.ok) throw new Error("Verse unavailable: "+apiRef); return r.json();})
+        .then(data=>{
+          const text = (data.verses||[]).map(v=>v.verse+" "+v.text.trim()).join("\n");
+          if(!text) throw new Error("No verse text returned: "+apiRef);
+          return {ref:apiRef,text};
+        })
+    )).then(results=>{
+      verseText.textContent=results.map(item=>item.text).join("\n\n");
+      status.textContent="King James Version (KJV)";
+    }).catch(()=>{
+      verseText.textContent="";
+      status.textContent="This reference could not be retrieved. Check that the Bible reference is written correctly, then try again.";
+    });
+  }
+  function closeModal(){modal.classList.remove("open");document.body.style.overflow="";}
+  body.addEventListener("click",e=>{
+    const link=e.target.closest(".bible-ref-link");
+    if(link){e.preventDefault();openModal(link.dataset.bibleRef);}
+  });
+  body.addEventListener("keydown",e=>{
+    const link=e.target.closest(".bible-ref-link");
+    if(link && (e.key==="Enter"||e.key===" ")){e.preventDefault();openModal(link.dataset.bibleRef);}
+  });
+  closeBtn.addEventListener("click",closeModal);
+  modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();});
+
+  // Re-scan whenever lesson content changes.
+  const scan=()=>linkReferences(body);
+  scan();
+  const observer=new MutationObserver(()=>{if(!body.querySelector(".bible-ref-link")) scan();});
+  observer.observe(body,{childList:true,subtree:true});
+});
+
 renderGrid();
 </script>
+
+<div id="bibleVerseModal" role="dialog" aria-modal="true" aria-labelledby="bibleVerseTitle">
+  <div class="bible-verse-card">
+    <div class="bible-verse-top">
+      <div>
+        <h2 class="bible-verse-title" id="bibleVerseTitle">King James Version (KJV)</h2>
+        <p class="bible-verse-subtitle" id="bibleVerseRef"></p>
+      </div>
+      <button type="button" id="bibleVerseClose" aria-label="Close verse">×</button>
+    </div>
+    <div id="bibleVerseText"></div>
+    <p id="bibleVerseStatus">Loading verse…</p>
+  </div>
+</div>
+
 </body>
 </html>
