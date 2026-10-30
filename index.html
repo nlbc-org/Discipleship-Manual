@@ -15,7 +15,7 @@
 <title>Discipleship</title>
 <script>
 (function(){var d=document.documentElement,t="light";
-try{t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}
+try{t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t="light"}catch(e){t="light"}
 d.setAttribute("data-theme",t)})();
 </script>
 <style>
@@ -138,7 +138,7 @@ d.setAttribute("data-theme",t)})();
   .lesson.open{display:block}
   .back{background:none;border:none;color:var(--moss);padding:0;margin-bottom:16px;text-decoration:underline}
   .lesson h2{margin:0 0 4px;font-size:1.9rem;font-weight:bold}
-  .lesson .ref{color:var(--moss);font-style:italic;margin:0 0 20px}
+  .lesson .ref{color:var(--moss);font-style:italic;font-weight:700;font-size:1.2rem;line-height:1.4;margin:0 0 20px}
   .verse{border-left:4px solid var(--fern);background:var(--sage);padding:12px 16px;margin:20px 0;border-radius:0 6px 6px 0}
   .lesson h4{margin:24px 0 6px;color:var(--soil)}
   .block{margin-top:28px;padding-top:20px;border-top:2px solid var(--line)}
@@ -184,11 +184,13 @@ d.setAttribute("data-theme",t)})();
   /* Lesson box scales with the screen (tablet + desktop); phones keep the full-screen app layout below */
   @media (min-width:641px){
     .lesson{max-width:780px;padding:36px 40px}
+    .lesson .ref{font-size:1.3rem}
     .lesson .point p,.lesson .sub,.lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.08rem}
   }
   @media (min-width:1024px){
     .lesson{max-width:900px;padding:44px 56px}
     .lesson h2{font-size:2.2rem}
+    .lesson .ref{font-size:1.4rem}
     .lesson .point p,.lesson .sub,.lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.15rem}
   }
   @media (min-width:1440px){
@@ -475,7 +477,7 @@ d.setAttribute("data-theme",t)})();
 const LESSONS = [
 {title: "The Word Of God",
   ref: "What is the significance of the Bible in my Life?",
-  description: "What separates Christianity from any \"religion\" in the world is its claim to an absolute written authority from God. Having the Word of God is essential to a Christian's growth in the grace & knowledge of Jesus Christ. The standards by which a Christian is to govern his life in every detail are found in the pages of the Word of God.\n\nThe purpose of this lesson is to acquaint the new Christians with the basics of the Bible and how it relates to his everyday life, so he can begin to understand how its principles are to guide every facet of his walk with Jesus Christ.",
+  description: "What separates Christianity from any “religion” in the world is its claim to an absolute written authority from God. Having the Word of God is essential to a Christian's growth in the grace & knowledge of Jesus Christ. The standards by which a Christian is to govern his life in every detail are found in the pages of the Word of God.\n\nThe purpose of this lesson is to acquaint the new Christians with the basics of the Bible and how it relates to his everyday life, so he can begin to understand how its principles are to guide every facet of his walk with Jesus Christ.",
   memory: [
     {
       ref: "2 Peter 1:21",
@@ -492,36 +494,36 @@ const LESSONS = [
   ],
    points:[
      {title:"The Word of God is active in salvation.",
-      subs:["1 Peter 1:23 says a man is born again <u><i>\"by the word of God\"</i></u>. The Word of God is the agent which brings about the new birth.","Ephesians 2:8-9,<i>\"For by grace are ye saved through faith...\"</i> Romans 10:17 says, <i>\"So then faith cometh by hearing and hearing <u>by the Word of God.</u>\"</i>","James 1:21 says the Word of God is, <i>\"...able to save your souls.\"</i>",
+      subs:["1 Peter 1:23 says a man is born again <u><i>“by the word of God”</i></u>. The Word of God is the agent which brings about the new birth.","Ephesians 2:8-9,<i>“For by grace are ye saved through faith...”</i> Romans 10:17 says, <i>“So then faith cometh by hearing and hearing <u>by the Word of God.</u>”</i>","James 1:21 says the Word of God is, <i>“...able to save your souls.”</i>",
       "Paul's summary of the gospel contains four parts in 1 Corinthians 15:1-4\n<b>1.</b> Jesus Christ died for our sins.\n<b>2.</b> Was buried\n<b>3.</b> Rose from the dead\n<b>4.</b> ACCORDING TO THE SCRIPTURES.",
     "You <u>must</u> believe what the Bible says about sin, your condition, and God's plan of salvation in order to be saved."]},
      
     {title:"Since you are saved by the Word of God, it must be your absolute, infallible guide to tell you how to live. (to illustrate)",
       subs:["Every major purchase (car, appliances, etc.) is accompanied by an owner's manual which tells you how to operate it. If you don't go by the book, it won't work.",
-      "The Bible is God's \"owner's manual\" for your life. God would not save you and call you to service w/out clear, exact directions; but you must \"go by the book.\"",
+      "The Bible is God's “owner's manual” for your life. God would not save you and call you to service w/out clear, exact directions; but you must “go by the book.”",
      ]},
      
      {title:"What is the purpose of the Word of God for a Christian?",
-      subs:["The Word of God equips you for service, <i>\"That the man of God may be perfect, thoroughly furnished unto all good works.\"</i> 2 Timothy 3:16-17; Ephesians 6:10-18",
-      "The Word of God sustains you. This illustrated in the Bible as \"spiritual food\" See Job 23:12 and Jeremiah 15:16. It is a complete & balanced diet.\n<b>1.</b> Milk-1 Peter 2:2\n<b>2.</b> Honey-Psalm 119:103; Prov. 16:24\n<b>3.</b> Apples-Prov. 7:2; 25:11\n<b>4.</b> Bread-Luke 4:4\n<b>5.</b> Water-Isaiah 55:10-11; Ephesians 5:26\n<b>6.</b> Meat - Hebrews 5:12-14; 1 Corinthians 3:1-2",
-    "The Word of God keep you clean to please God\nPsalm119:9-11; John 15:3"]},
+      subs:["The Word of God equips you for service, <i><b>“That the man of God may be perfect, thoroughly furnished unto all good works.”</i></b> 2 Timothy 3:16-17; Ephesians 6:10-18",
+      "The Word of God sustains you. This illustrated in the Bible as “spiritual food” See Job 23:12 and Jeremiah 15:16. It is a complete & balanced diet.\n<b>1.</b> Milk-1 Peter 2:2\n<b>2.</b> Honey-Psalm 119:103; Prov. 16:24\n<b>3.</b> Apples-Prov. 7:2; 25:11\n<b>4.</b> Bread-Luke 4:4\n<b>5.</b> Water-Isaiah 55:10-11; Ephesians 5:26\n<b>6.</b> Meat - Hebrews 5:12-14; 1 Corinthians 3:1-2",
+    "The Word of God keep you clean to please God\nPsalm 119:9-11; John 15:3"]},
       
     {title:"Is the Bible completely reliable?",
-      subs:["It is more sure than audible voice of God. This is a very critical point. It must be understood that <u>all</u> \"experience\" are to be judged by an Infallible standard which is greater than <u>any</u> experience. Peter said the Word of God was as SURE as seeing the physical appearance & audible voice of God. See II Peter 1:16-21 compared with Matthew 17:1-9",
+      subs:["It is more sure than audible voice of God. This is a very critical point. It must be understood that <u>all</u> “experience” are to be judged by an Infallible standard which is greater than <u>any</u> experience. Peter said the Word of God was as SURE as seeing the physical appearance & audible voice of God. See II Peter 1:16-21 compared with Matthew 17:1-9",
       "The universe was created by the spoken Word of God.Hebrews 11:3; Psalm 33:6; Genesis 1:3",]},
 
      {title:"How do I learn the Bible?",
       subs:["The Holy Spirit of God will lead & guide you into all truth. God may use other instruments to aid in teaching (books, tapes, preachers, etc.) but ultimately, truth is revealed by the Holy Spirit. John 14:26; 16:13-15",
-      "The Bible is learned by comparing scriptures with scripture, relying on God's spirit to teach you and not your own natural intellect. <i>\"The natural man receiveth not the things of the Spirit of God.\"</i> 1 Corinthians 2:9-16 ",]},
+      "The Bible is learned by comparing scriptures with scripture, relying on God's spirit to teach you and not your own natural intellect. <i><b>“The natural man receiveth not the things of the Spirit of God.”</b></i> 1 Corinthians 2:9-16 ",]},
   
 
     {title:"The brief history of the Bible.",
       subs:["Total of 66 books.", "Written by more than 40 writers.", "Written over a time span of about 2,000 years.", "Totally accurate in matters of history and prophecy.",
       "Not one contradiction.", "Fits together perfectly as if written by one man.",
-      "The Author of the Bible is the Holy Ghost. 2 Peter 1:21","THE MIDDLE OF THE BIBLE is Psalm 118:8 <i>\"It is better to trust in the Lord than to put confidence in man.\"</i> The middle two words in that verse are <b>\"the Lord.\"</b> <u>The Lord is the center of the Bible.</u>",]},
+      "The Author of the Bible is the Holy Ghost. 2 Peter 1:21","THE MIDDLE OF THE BIBLE is Psalm 118:8 <b><i>“It is better to trust in <u>the Lord</u> than to put confidence in man.”</b></i> The middle two words in that verse are <b>\"the Lord.\"</b> <u>The Lord is the center of the Bible.</u>",]},
      
       {title:"Read this famous quote concerning the Bible.",
-      subs:["\"The Bible contains the mind of God, the state of man, the way of salvation, the doom of sinners and the happiness of believers. Its doctrines are holy, its precepts are binding, its histories are true and its decisions are immutable. \n\nRead it to be wise, believe it to be safe and practice it to be holy. It contains light to direct you, food to support you and comfort to cheer you. It is the traveler's map, the pilgrim's staff, the pilot's compass, the soldier's sword and the Christian's charter.\n\nHere paradise is restored, heaven opened and the gates of hell disclosed. Christ is its grand subject, our good its design and the glory of God its end. It should fill the memory, rule the heart and guide the feet.\n\nRead it slowly, frequently, prayerfully, it is a mine of wealth, a paradise of glory & a river of pleasure. It is given to you in life, will be open at the judgment and remembered forever. It involves the highest responsibility, rewards the greatest labor and condemns all who trifle with its holy contents.\"",]},
+      subs:["“The Bible contains the mind of God, the state of man, the way of salvation, the doom of sinners and the happiness of believers. Its doctrines are holy, its precepts are binding, its histories are true and its decisions are immutable. \n\nRead it to be wise, believe it to be safe and practice it to be holy. It contains light to direct you, food to support you and comfort to cheer you. It is the traveler's map, the pilgrim's staff, the pilot's compass, the soldier's sword and the Christian's charter.\n\nHere paradise is restored, heaven opened and the gates of hell disclosed. Christ is its grand subject, our good its design and the glory of God its end. It should fill the memory, rule the heart and guide the feet.\n\nRead it slowly, frequently, prayerfully, it is a mine of wealth, a paradise of glory & a river of pleasure. It is given to you in life, will be open at the judgment and remembered forever. It involves the highest responsibility, rewards the greatest labor and condemns all who trifle with its holy contents.”",]},
  ],
 
    q:"<b>A</b>. Where should I start reading? \n\nAs a Christian, focus on the primary places which deal with your new relationship with your Heavenly Father. The Gospel of John, the Epistle of I John & Psalm 119 are excellent places to begin.\n\n1. The Gospel of John is written that you might believe on the Lord Jesus Christ. John 20:31\n2. The Epistle of 1 John is written that you might have complete assurance of salvation. 1 John 5:13\n3. Psalm 119 is the greatest chapter in the Bible on a man's love for the Word of God.\n\n<b>B</b>. What if I find something I don't understand?\n\n1. Don't get upset about it. God will reveal it to you in time - when you are ready. John 16:12\n2. Be sure you live what you do understand. God will not give you more than you are capable of handling. As you put into practice the things you are learning, God will entrust you with more."},
@@ -548,20 +550,20 @@ const LESSONS = [
   ],
    points:[
      {title:"There are only two spiritual families in the world.",
-      subs:["<u>The devil’s family.</u>\n <b>1.</b> John 8:44 speaks of a group of people who are <i>\“of their father the devil.\”</i> See also John 8:38.\n <b>2.</b> You enter this family by birth through your physical father, who is ultimately a descendant of Adam. Genesis 5:3 shows that the descendants of Adam are born in Adam’s image and likeness, which is that of a fallen sinner.\n<b>3.</b> You inherited your sin nature from your father Adam. Romans 5:12 states, <i>\“Wherefore, as by one man (Adam) sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned..\”</i>\n4. Romans 5:12 also states that as a result of your sin you were sentenced to die.\n <b>a</b>. Romans 6:23: <i>\“the wages of sin is death...\”</i>\n<b>b</b>. 1 Corinthians 15:22: <i>\“...In Adam all die...\”\n</i>",
-     "<u>God’s family.</u>\n1. John 1:12-13 says, <i>\"but as many as received him</i> (that is your decision to trust Jesus Christ as your Savior), <i>to them gave he power to become the sons of God</i> (your entrance into God’s family), <i>even to them that believe on his name: which were born, not of blood, not of the will of the flesh, nor of the will of man</i> (it is not a physical birth), <i>but of God.\”</i> (It is spiritual birth).\n2. You also enter God’s family by birth, but it is a spiritual birth by your Heavenly Father. John 3:3 stated <i>\“except a man be born again, he cannot see the kingdom of God\”</i>.\n3. This new birth puts you into God's family in exactly the same way your physical birth puts you into your father's family. You are now a son of God <u>by birth</u>. \n4. As a result of your new birth, you have inherited God's divine nature, and you now have eternal life.\n<b>A</b>. John 6:47 <i>\"He that believeth on me hath</i> (present tense) <i>everlasting life...\"</i>\n<b>B</b>. John 3:36 <i>\"He that believeth on the Son hath</i> (present tense) <i>everlasting life...\"</i>\n<b>C</b>. 1 John 5:12 <i>\"He that hath the Son hath (present tense) life...\"</i>"]},
+      subs:["<b><u>The devil’s family.</u></b>\n <b>1.</b> John 8:44 speaks of a group of people who are <b><i>\“of their father the devil.\”</i></b> See also John 8:38.\n <b>2.</b> You enter this family by birth through your physical father, who is ultimately a descendant of Adam. Genesis 5:3 shows that the descendants of Adam are born in Adam’s image and likeness, which is that of a fallen sinner.\n<b>3.</b> You inherited your sin nature from your father Adam. Romans 5:12 states, <b><i>\“Wherefore, as by one man </i>(Adam)<i> sin entered into the world, and death by sin; and so death passed upon all men, for that all have sinned..\”</i></b>\n<b>4</b>. Romans 5:12 also states that as a result of your sin you were sentenced to die.\n <b>a</b>. Romans 6:23: <b><i>\“the wages of sin is death...\”</i></b>\n<b>b</b>. 1 Corinthians 15:22: <b><i>\“...In Adam all die...\”\n</b></i>",
+     "<u><b>God’s family.</u></b>\n1. John 1:12-13 says, <i><b>“but as many as received him</i></b> (that is your decision to trust Jesus Christ as your Savior), <b><i>to them gave he power to become the sons of God</i></b> (your entrance into God’s family), <b><i>even to them that believe on his name: which were born, not of blood, not of the will of the flesh, nor of the will of man</i></b> (it is not a physical birth), <b><i>but of God.”</i></b> (It is spiritual birth).\n2. You also enter God’s family by birth, but it is a spiritual birth by your Heavenly Father. John 3:3 stated <b><i>“except a man be born again, he cannot see the kingdom of God”</i></b>.\n3. This new birth puts you into God's family in exactly the same way your physical birth puts you into your father's family. You are now a son of God <u>by birth</u>. \n4. As a result of your new birth, you have inherited God's divine nature, and you now have eternal life.\n<b>A</b>. John 6:47 <b><i>“He that believeth on me hath</i></b> (present tense) <b><i>everlasting life...”</i></b>\n<b>B</b>. John 3:36 <i><b>“He that believeth on the Son hath</b></i> (present tense) <b><i>everlasting life...”</b></i>\n<b>C</b>. 1 John 5:12 <i><b>“He that hath the Son hath</b> (present tense) <b>life...”</b></i>"]},
 
     {title:"Being in God's family separates you from the devil's family.",
-      subs:["Your body is now the temple of the Holy Ghost. God's Holy Spirit lives inside you. 1 Conrinthians 6:19",
+      subs:["Your body is now the temple of the Holy Ghost. God's Holy Spirit lives inside you. 1 Corinthians 6:19",
       "2 Corinthians 6:14-18 commands the believer to maintain a difference between himself and the unsaved.",
-      "The new life is perfectly summarized for you in 2 Corinthians 5:17-18, <i>\"Therefore if any man be in Christ, he is a new creature; old things are passed away; behold, all things are become new. And all the things are of God, who hath reconciled us to himself by Jesus Christ...\"</i>\n<b>1</b>. At the moment of your salvation, your old nature <u>died</u> and was <u>buried</u> with Christ. What <u>arose</u> out of the grave was something completely different than what went into the grave. You become a new creature with a new nature! Colossians 2:12, 3:3\n<b>2</b>. Upon your salvation, however, you did not receive a new <u>body</u> or new <u>mind</u>. That will be our future glory. Colossians 3:4\n <b>3</b>. Because our bodies (flesh) and our minds remember what we used to do, and how we used to think, they constantly seek to pull us toward sin.\n<b>4</b>. That is why Paul tells us that we must <i>\"mortify\"</i> (kill) the deeds of our body (Colossians 3:5), and <i>\"out off\"</i> the sins of the mind, (Colossians 3:8-9)."
+      "The new life is perfectly summarized for you in 2 Corinthians 5:17-18, <i><b>“Therefore if any man be in Christ, he is a new creature; old things are passed away; behold, all things are become new. And all the things are of God, who hath reconciled us to himself by Jesus Christ...”</b></i>\n<b>1</b>. At the moment of your salvation, your old nature <u>died</u> and was <u>buried</u> with Christ. What <u>arose</u> out of the grave was something completely different than what went into the grave. You become a new creature with a new nature! Colossians 2:12, 3:3\n<b>2</b>. Upon your salvation, however, you did not receive a new <u>body</u> or new <u>mind</u>. That will be our future glory. Colossians 3:4\n <b>3</b>. Because our bodies (flesh) and our minds remember what we used to do, and how we used to think, they constantly seek to pull us toward sin.\n<b>4</b>. That is why Paul tells us that we must <i>\"mortify\"</i> (kill) the deeds of our body (Colossians 3:5), and <i>\"out off\"</i> the sins of the mind, (Colossians 3:8-9)."
      ]},
      
      {title:"What is my relationshhip with God now?",
-      subs:["He is your Heavenly Father, and you are His child. 1 John 2:1 says, <i>\"My little children, these things write I unto you, that ye sin not. And if any man sin, we have an advocate with the Father, Jesus Christ the righteous\"</i>.",
+      subs:["He is your Heavenly Father, and you are His child. 1 John 2:1 says, <b><i>“My little children, these things write I unto you, that ye sin not. And if any man sin, we have an advocate with the Father, Jesus Christ the righteous”</b></i>.",
       "Now, that you are saved, God no longer deals with you as a sinner, He deals w/ you as a son.",
-    "That relationship is pictured by the earthly relationship between a father and his son.\n1. A good father loves and cares for his son. 1 Peter 5:7\n2. A good father protects his son. Matthew 18:6\n3. A good father provides for his son. Philippians 4:19\n4. A good father guides and teaches his son. John 14:26\n 5. A good father helps his son. Psalm 46:1\n 6. A good father encourages his son. Philippians 4:13\n 7. A good father disciplines his son. Hebrews 12:5-11\n 8. A good father feeds his son. Matthew 4:4\n 9. A good father has a plan for his son. Romans 8:28-29",
-    "A good father will <u>NEVER</u> do anything to purposely hurt his son. He will only do those things which will help him grow mature into the young man he wants him to be. Your Heavenly Father operates in the same way, only his ways are perfect. Unlikely earthly fathers who sometimes err, God never makes a mistake in his dealings w/ His sons.\n\nMatther 7:11\n<i>\“If ye then, being evil, know how to give good gifts unto your children, how much more shall your Father which is in heaven give good things to them that ask him?\"</i>"]},
+    "That relationship is pictured by the earthly relationship between a father and his son.\n<b>1</b>. A good father loves and cares for his son. 1 Peter 5:7\n<b>2</b>. A good father protects his son. Matthew 18:6\n<b>3</b>. A good father provides for his son. Philippians 4:19\n<b>4</b>. A good father guides and teaches his son. John 14:26\n <b>5</b>. A good father helps his son. Psalm 46:1\n <b>6</b>. A good father encourages his son. Philippians 4:13\n <b>7</b>. A good father disciplines his son. Hebrews 12:5-11\n <b>8</b>. A good father feeds his son. Matthew 4:4\n <b>9</b>. A good father has a plan for his son. Romans 8:28-29",
+    "A good father will <u>NEVER</u> do anything to purposely hurt his son. He will only do those things which will help him grow mature into the young man he wants him to be. Your Heavenly Father operates in the same way, only his ways are perfect. Unlikely earthly fathers who sometimes err, God never makes a mistake in his dealings w/ His sons.\n\nMatthew 7:11\n<i><b>\“If ye then, being evil, know how to give good gifts unto your children, how much more shall your Father which is in heaven give good things to them that ask him?\"</i></b>"]},
 
  ],
 
@@ -588,8 +590,8 @@ const LESSONS = [
   ],
    points:[
      {title:"Study the testimony of the Lord Jesus Christ Himself on this subject.",
-      subs:["Jesus Christ promises that <i>\"... him that cometh to me I will in no wise cast out.\"</i> (John 6:37) God will not cast you out of his family under any circumstances.",
-     "John 10:27-29 makes it clear that no man can cause you to lose your salvation, because God your Father is greater than all men, therefore no man is able to pluck you out his hand.",]},
+      subs:["Jesus Christ promises that <b><i>“... him that cometh to me I will in no wise cast out.”</b></i> (John 6:37) God will not cast you out of his family under any circumstances.",
+     "John 10:27-29 makes it clear that <u>no man</u> can cause you to lose your salvation, because God your Father is greater than all men, therefore no man is able to pluck you out his hand.",]},
 
     {title:"Okay, God won’t cast me out, and no man can pluck me out of His hand. But what about me? Can I do something that would cause me to lose my salvation?",
       subs:["Salvation is by grace through faith, and not by works. It is a GIFT from God. No man can lose his salvation on his own, because no man earned his salvation, Ephesians 2:8-9",
@@ -598,16 +600,16 @@ const LESSONS = [
      ]},
      
      {title:"Okay, God won't cast me out, no man cause me to lose my salvation, and I can't lose it myself, but is there anything else that can cause me to lose my salvation?\nNo. Romans 8:38-39 says, <i>“For I am persuaded that neither:</i>",
-      subs:["<i>“Death”</i> - you can't lose it when you die.",
-      "<i>“Life”</i> - you can't lose it while you are alive.",
-      "<i>“Angels”</i> - can't take it from you.",
-      "<i>“Principalities”</i> - the government can't take it from you.",
-      "<i>“Powers”</i> - the devil can't cause you to lose it.",
-      "<i>“Things present”</i> - nothing happening right now can take it away.",
-      "<i>“Things to come”</i> - nothing in the future can make you lose it.",
-      "<i>“Height”</i> - nothing above you.",
-      "<i>“Depth”</i> - nothing below you.",
-      "<u><i>“Nor any other creature</u> shall be able to separate us from the love of God, which is in Christ Jesus our Lord.”</i>"]},
+      subs:["<b><i>“Death”</i></b> - you can't lose it when you die.",
+      "<b><i>“Life”</i></b> - you can't lose it while you are alive.",
+      "<b><i>“Angels”</i></b> - can't take it from you.",
+      "<b><i>“Principalities”</i></b> - the government can't take it from you.",
+      "<b><i>“Powers”</i></b> - the devil can't cause you to lose it.",
+      "<b><i>“Things present”</i></b> - nothing happening right now can take it away.",
+      "<b><i>“Things to come”</i></b> - nothing in the future can make you lose it.",
+      "<b><i>“Height”</i></b> - nothing above you.",
+      "<b><i>“Depth”</i></b> - nothing below you.",
+      "<b><u><i>“Nor any other creature</u> shall be able to separate us from the love of God, which is in Christ Jesus our Lord.”</i></b>"]},
 
 
     {title:"Why is this?",
@@ -620,7 +622,7 @@ const LESSONS = [
 
  ],
 
-   q:"<b>A. How can I know for sure I am saved?</b>\nThe epistle of 1 John is written for this purpose. 1 John 5:13 says, <i>\"These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life...\"</i> As new Christian, 1 John should be a primary focal point to help you grow and to settle this issue.\n\n<b>B. What if I don't feel saved?</b>\n <b>1.</b> Your salvation is not based on feelings. It is based upon the objective factual truth of the Word of God. \n <b>a.</b> 1 John 3:20 says, <i>\"For if our heart condemn us</i> (we think or feel unsaved), <i>God is greater than our hearts and knoweth all things.\"</i> God knows if you're saved, even if you don't. \n <b>b.</b> Titus 1:2 says, <i>\"In hope of eternal life, which God, that cannot lie, promised before the world began.\"</i>\n <b>2. JUST BELIEVE WHAT GOD HAS SAID!</b>"},
+   q:"<b>A. How can I know for sure I am saved?</b>\nThe epistle of 1 John is written for this purpose. 1 John 5:13 says, <b><i>“These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life...”</i></b> As new Christian, 1 John should be a primary focal point to help you grow and to settle this issue.\n\n<b>B. What if I don't feel saved?</b>\n <b>1.</b> Your salvation is not based on feelings. It is based upon the objective factual truth of the Word of God. \n <b>a.</b> 1 John 3:20 says, <b><i>“For if our heart condemn us</i></b> (we think or feel unsaved),<b> <i>God is greater than our hearts and knoweth all things.”</i></b> God knows if you're saved, even if you don't. \n <b>b.</b> Titus 1:2 says, <b><i>“In hope of eternal life, which God, that cannot lie, promised before the world began.”</i></b>\n <b>2. JUST BELIEVE WHAT GOD HAS SAID!</b>"},
 
 // ===============================================================================
 
@@ -646,7 +648,7 @@ const LESSONS = [
    points:[
      {title:"Why does God instruct us to be baptized?",
       subs:["Baptism is the first act of obedience in service to the Lord. <u>Anyone</u> can be baptized; it takes <u>no</u> special talents or effort.","Jesus set the example Himself by submitting to baptism <u>before</u> He began His public ministry. Matthew 3:13-17; Mark 1:9-11; Luke 3:21-22 ",
-        "In Matthew 3:13-15, it is clear that Jesus was baptized in obedience to God's plan. In verse 15, He said, <i>\"...Suffer\"</i>(allow) <i>\"it to be so now: for thus it becometh us to fulfill all righteousness.\"</i> This point of submission and obedience is the single most important thing to realize regarding baptism.",
+        "In Matthew 3:13-15, it is clear that Jesus was baptized in obedience to God's plan. In verse 15, He said, <b><i>“...Suffer</b> (allow) <b>it to be so now: for thus it becometh us to fulfill all righteousness.”</b></i> This point of submission and obedience is the single most important thing to realize regarding baptism.",
         "Other Bible characters who submitted to baptism after salvation. \n<b>1</b>. The Ethiopian eunuch- Acts 8:36-39\n<b>2</b>. The apostle Paul- Acts 9:18\n <b>3</b>. The Philippian jailer and his house- Acts 16:25-33"
       ]},
 
@@ -655,10 +657,10 @@ const LESSONS = [
       "Romans 6:1-7 (specifically verses 3-4) shows the two purposes of baptism.\n <b>1</b>. It <u>pictures</u> the death, burial and resurrection of Jesus Christ.\n <b>2</b>. It is a public testimony of the new convert's identification with Jesus Christ through the death, burial and resurrection, which is how he was saved. It identifies with the Lord Jesus Christ."]},
      
      {title:"Who should be baptized?",
-      subs:["The clearest case of an individual's baptism in the Bible is the Ethiopian eunuch in Acts 8:26-39. In verse 36, the eunuch asked, <i>\"...what doth hinder me to be baptized?\"</i> Philip then answered with the condition of baptism in verse 37, <i>\"... If thou believest with all thine heart, thou mayest.\"</i> Then the eunuch's response sealed the matter, <i>\"... I believe that Jesus Christ is the Son of God.\"</i>",
+      subs:["The clearest case of an individual's baptism in the Bible is the Ethiopian eunuch in Acts 8:26-39. In verse 36, the eunuch asked, <b><i>“...what doth hinder me to be baptized?”</b></i> Philip then answered with the condition of baptism in verse 37, <b><i>“... If thou believest with all thine heart, thou mayest.”</i></b> Then the eunuch's response sealed the matter, <b><i>“... I believe that Jesus Christ is the Son of God.”</b></i>",
       "The only requirements for baptism are the requirements for salvation found in Romans 10:9-10. \n <b>1</b>. Heart belief in Jesus Christ as Lord and Savior. \n <b>2</b>. Confession that He is Lord and Savior.",
     "There are <u>NO</u> cases of baptism in the Bible of anyone but believers.",
-    "Some other instances of baptism immediately <u>after</u> salvation include:\n <b>1</b>. Acts 8:12 \n <b>2</b>. Acts Acts 18:8 "]},
+    "Some other instances of baptism immediately <u>after</u> salvation include:\n <b>1</b>. Acts 8:12 \n <b>2</b>. Acts 18:8 "]},
 
        {title:"What is the method of baptism?",
       subs:["Again, Acts 8:26-39 gives the clearest example. In verses 38-39, BOTH Philip and the Ethiopian eunuch went down <u>into</u> the water and came up out of the water",
@@ -694,7 +696,7 @@ const LESSONS = [
   ],
    points:[
      {title:"Where do I find the Holy Spirit?",
-      subs:["The Holy Spirit of God lives on this earth <u>inside</u> your body if you are saved. He came in at the moment of salvation and took up <u>permanent</u> residency.\n<b>1</b>. Corinthians 6:19-20 is the definitive passage.\n<b>2</b>.  See also: John 14:17; Galatians 4:6; Ephesians 2:22",
+      subs:["The Holy Spirit of God lives on this earth <u>inside</u> your body if you are saved. He came in at the moment of salvation and took up <u>permanent</u> residency.\n<b>1</b>. 1 Corinthians 6:19-20 is the definitive passage.\n<b>2</b>.  See also: John 14:17; Galatians 4:6; Ephesians 2:22",
       ]},
 
 {title:"What is the function of the Holy Spirit?",
@@ -753,10 +755,10 @@ const LESSONS = [
 
    {title: "There are four basic types of prayer. I Timothy 2:1",
     subs: [
-      "<b>Adoration (Worship)</b> – giving the Lord the glory He deserves. Psalm 29:2 says, <i>“Give unto the Lord the glory due unto His name; worship the Lord in the beauty of holiness.”</i>",
+      "<b>Adoration (Worship)</b> – giving the Lord the glory He deserves. Psalm 29:2 says, <i><b>“Give unto the Lord the glory due unto His name; worship the Lord in the beauty of holiness.”</i></b>",
       "<b>Confession</b> (“confess” means to “agree, or to say the same thing.”) – confession means to agree with God about your sin, or to say the same thing about your sin that God says about it. Psalm 32:5; I John 1:9",
       "<b>Thanksgiving</b> - the expression of the gratefulness in your heart to God for His wonderful works. Psalm 26:7; 100:4",
-      "<b>Supplication</b> – specific requests. Philippians 4:6 says to <i>“let your requests be made known unto God.”</i> Too many prayers are wasted because they are so general. (For example: “God, give me a blessing.” “Which one? How do you want me to bless you?”) Specific request made on behalf of other people are referred to in scripture as “intercessions” (I Timothy 2:1). This is important to keep your motives pure, and to help you keep your eyes off yourself."
+      "<b>Supplication</b> – specific requests. Philippians 4:6 says to <i><b>“let your requests be made known unto God.”</i></b> Too many prayers are wasted because they are so general. (For example: “God, give me a blessing.” “Which one? How do you want me to bless you?”) Specific request made on behalf of other people are referred to in scripture as “intercessions” (I Timothy 2:1). This is important to keep your motives pure, and to help you keep your eyes off yourself."
     ]},
 
    {title: "Keep track of your prayer requests.",
@@ -778,8 +780,8 @@ const LESSONS = [
       text: "1 I beseech you therefore, brethren, by the mercies of God, that ye present your bodies a living sacrifice, holy, acceptable unto God, which is your reasonable service.\n 2 And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."
     },
     {
-      ref: "1 Peter 3:7",
-      text: "Likewise, ye husbands, dwell with them according to knowledge, giving honour unto the wife, as unto the weaker vessel, and as being heirs together of the grace of life; that your prayers be not hindered.",
+      ref: "1 Peter 3:17",
+      text: "For it is better, if the will of God be so, that ye suffer for well doing, than for evil doing.",
     },
      {
       ref: "2 Peter 3:9",
@@ -801,7 +803,7 @@ const LESSONS = [
 
    {title: "Where can I find the will of God for my life?",
     subs: [
-      "You will never find the will of God or the plan of God outside of the Word of God. You find God’s will and plan by renewing your mind. (Romans 12:1-2) You renew your mind by letting <i>“...this mind be in you, which was also in Christ Jesus.”</i> Phil. 2:5) You must replace carnal thoughts with God’s thoughts by immersing yourself in the Word of God. (II Corinthians 10:5)"
+      "You will never find the will of God or the plan of God outside of the Word of God. You find God’s will and plan by renewing your mind. (Romans 12:1-2) You renew your mind by letting <b><i>“...this mind be in you, which was also in Christ Jesus.”</i></b> Phil. 2:5) You must replace carnal thoughts with God’s thoughts by immersing yourself in the Word of God. (II Corinthians 10:5)"
     ]},
 
    {title: "How does God reveal His plan for my life?",
@@ -826,7 +828,7 @@ const LESSONS = [
   points: [
     {title: "What is a Church? (I Timothy 3:15)",
      subs: [
-      "<b>What It is, & What It is Not?</b>\n<b>1</b>. A new testament church is not a building. If you are looking for a temple to worship in, the Bible says that “our ________ are the temple of God” (I Corinthians 6:19,20)\n<b>2</b>. It is NOT a denomination, or group of congregation either.\n<b>3</b>. However, a church is a group of people who assemble because they are saved, baptized, and purposed in their hearts to fulfill all that Jesus Christ commanded them to do in the Scriptures. This “group” of believers is called the “body of Christ” in I Cor. 12:27 because it represents His body on earth today, and operates like a human body in the following ways:\n<b>a</b>) Each member of the body has a different function in that body (12:14-20) - they minister to one another’s needs.\n<b>b</b>) No one member can function alone (12:21)\n<b>c</b>) Each member’s contribution is important (12:22-24) to the well being of the entire body.\n<b>d</b>) A properly functioning body operates as a single unit (12:25-27)\n<b>e</b>) The church is a living organism constantly growing, and maturing under the never changing, and always perfect Head, Jesus Christ. (Ephesians 5:23).\n<b>4</b>. The local church is also called the family of God or the “household of God”. (Gal. 6:10; Eph. 2:19; Heb. 3:6)\n<b>5</b>. All members of God’s family must be ________ ________ into His family. (John 3:3; John 1:12,13). <i>“Except a man be born again he cannot see the kingdom of God.”</i> John 3:3",
+      "<b>What It is, & What It is Not?</b>\n<b>1</b>. A new testament church is not a building. If you are looking for a temple to worship in, the Bible says that “our ________ are the temple of God” (I Corinthians 6:19,20)\n<b>2</b>. It is NOT a denomination, or group of congregation either.\n<b>3</b>. However, a church is a group of people who assemble because they are saved, baptized, and purposed in their hearts to fulfill all that Jesus Christ commanded them to do in the Scriptures. This “group” of believers is called the “body of Christ” in I Cor. 12:27 because it represents His body on earth today, and operates like a human body in the following ways:\n<b>a</b>) Each member of the body has a different function in that body (12:14-20) - they minister to one another’s needs.\n<b>b</b>) No one member can function alone (12:21)\n<b>c</b>) Each member’s contribution is important (12:22-24) to the well being of the entire body.\n<b>d</b>) A properly functioning body operates as a single unit (12:25-27)\n<b>e</b>) The church is a living organism constantly growing, and maturing under the never changing, and always perfect Head, Jesus Christ. (Ephesians 5:23).\n<b>4</b>. The local church is also called the family of God or the “household of God”. (Gal. 6:10; Eph. 2:19; Heb. 3:6)\n<b>5</b>. All members of God’s family must be ________ ________ into His family. (John 3:3; John 1:12,13). <b><i>“Except a man be born again he cannot see the kingdom of God.”</b></i> John 3:3",
 
       "<b>The Purpose of the Local Church</b> (Acts 2:41-47; 1:8; Eph. 4:11-16)\n<b>1</b>. The three-fold purpose of the church is? (Matt. 28:19,20) ________, ________, ________.\n<b>2</b>. For the teaching of the word of God (Acts 2:42) and discipleship (John 15:16).\n<b>3</b>. Provide fellowship with believers ( Acts 2:42)\n<b>4</b>. For Prayer (2:42)\n<b>5</b>. For the observance of the two “ordinances” that the Lord left the church: baptism (2:41) and the Lord’s supper (2:42)\n<b>6</b>. To testify God’s grace and power to the world (2:43)\n<b>7</b>. To enable members to minister to each other’s needs (2:44,45)\n<b>8</b>. To enable members to enjoy God (2:46,47)\n<b>9</b>. To edify (build up, train, strengthen) the saints (Eph. 4:11-16)\n<b>10</b>. All with the focus of reproducing itself throughout the world (Acts 1:8) through soul-winning and Missions!",
 
@@ -845,7 +847,7 @@ const LESSONS = [
 
     {title: "Why Should A Person Join A Church?",
      subs: [
-      "The Bible teaches it. (Hebrews 10:25a) <i>“Not forsaking the ________ ________ ________ as the manner of some is,...”</i>",
+      "The Bible teaches it. (Hebrews 10:25) <i>“Not forsaking the ________ ________ ________ as the manner of some is,...”</i>",
       "Believers in New Testament times were automatically added to the ________ (Acts 2:47) when they got baptized.",
       "For growth and fellowship. “They continued in the apostles ________ & ________. Acts 2:42\nAre you a member of a church, which not only believes the Bible, but more important practices it? If so, where? ________. If not, what would keep you from joining with your Discipler’s Local New Testament Church?"
      ]},
@@ -1377,13 +1379,7 @@ function applyTheme(t, save){
 applyTheme(document.documentElement.getAttribute("data-theme") || "light", false);
 $("themeBtn").onclick = () =>
   applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
-// follow the phone's setting until the person picks one themselves
-try{
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-    let saved = null; try{ saved = localStorage.getItem("theme"); }catch{}
-    if(!saved) applyTheme(e.matches ? "dark" : "light", false);
-  });
-}catch{}
+// default is light; after that the saved choice (sun/moon button) is used
 const store = {
   get(k,f){try{return JSON.parse(localStorage.getItem(k)) ?? f}catch{return f}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
@@ -1984,19 +1980,50 @@ document.addEventListener("DOMContentLoaded",()=>{
   const closeBtn = document.getElementById("bibleVerseClose");
   if(!body || !modal) return;
 
-  // Bible book names and common abbreviations (including Prov. and Psalm/Psalms).
-  const books = [
-    "1\\s*Samuel","2\\s*Samuel","1\\s*Kings","2\\s*Kings","1\\s*Chronicles","2\\s*Chronicles",
-    "1\\s*Corinthians","2\\s*Corinthians","1\\s*Thessalonians","2\\s*Thessalonians","1\\s*Timothy","2\\s*Timothy",
-    "1\\s*Peter","2\\s*Peter","1\\s*John","2\\s*John","3\\s*John","Song of Solomon",
-    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","Ezra","Nehemiah","Esther","Job",
-    "Psalms?","Psalm","Prov(?:erbs?)?\\.?","Proverbs","Ecclesiastes","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel",
-    "Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi",
-    "Matthew","Mark","Luke","John","Acts","Romans","Galatians","Ephesians","Philippians","Colossians","Jude","Revelation"
+  // ---- Bible book table: canonical name + accepted abbreviations ----
+  const plainBooks = [
+    ["Genesis",["genesis","gen"]],["Exodus",["exodus","exod"]],["Leviticus",["leviticus","lev"]],
+    ["Numbers",["numbers","num"]],["Deuteronomy",["deuteronomy","deut"]],["Joshua",["joshua","josh"]],
+    ["Judges",["judges","judg"]],["Ruth",["ruth"]],["Ezra",["ezra"]],["Nehemiah",["nehemiah","neh"]],
+    ["Esther",["esther","esth"]],["Job",["job"]],["Psalms",["psalms","psalm","psa","ps"]],
+    ["Proverbs",["proverbs","proverb","prov"]],["Ecclesiastes",["ecclesiastes","eccles","eccl"]],
+    ["Song of Solomon",["song of solomon","song of songs"]],["Isaiah",["isaiah","isa"]],
+    ["Jeremiah",["jeremiah","jer"]],["Lamentations",["lamentations","lam"]],["Ezekiel",["ezekiel","ezek"]],
+    ["Daniel",["daniel","dan"]],["Hosea",["hosea","hos"]],["Joel",["joel"]],["Amos",["amos"]],
+    ["Obadiah",["obadiah","obad"]],["Jonah",["jonah"]],["Micah",["micah","mic"]],["Nahum",["nahum","nah"]],
+    ["Habakkuk",["habakkuk","hab"]],["Zephaniah",["zephaniah","zeph"]],["Haggai",["haggai","hag"]],
+    ["Zechariah",["zechariah","zech"]],["Malachi",["malachi","mal"]],
+    ["Matthew",["matthew","matt"]],["Mark",["mark","mk"]],["Luke",["luke","lk"]],["John",["john","jn"]],
+    ["Acts",["acts"]],["Romans",["romans","rom"]],["Galatians",["galatians","gal"]],
+    ["Ephesians",["ephesians","eph"]],["Philippians",["philippians","phil"]],["Colossians",["colossians","col"]],
+    ["Titus",["titus"]],["Philemon",["philemon"]],["Hebrews",["hebrews","heb"]],["James",["james","jas"]],
+    ["Jude",["jude"]],["Revelation",["revelation","rev"]]
   ];
-  const bookPattern = books.sort((a,b)=>b.length-a.length).join("|");
-  // Includes references like "Prov. 7:2; 25:11" as one clickable reference.
-  const refRegex = new RegExp("\\b(" + bookPattern + ")\\s+\\d{1,3}:\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3}(?::\\d{1,3})?)?(?:\\s*[,;]\\s*(?:[A-Za-z.]+\\s+)?\\d{1,3}:\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)*","gi");
+  // Books that carry a number: 1/2/3 or I/II/III (e.g. "II Peter", "I Samuel", "1John")
+  const numberedBooks = [
+    ["Samuel",["samuel","sam"]],["Kings",["kings","kgs"]],["Chronicles",["chronicles","chron","chr"]],
+    ["Corinthians",["corinthians","cor"]],["Thessalonians",["thessalonians","thess","thes"]],
+    ["Timothy",["timothy","tim"]],["Peter",["peter","pet"]],["John",["john","jn"]]
+  ];
+  const plainMap = {}, numMap = {};
+  plainBooks.forEach(([c,a])=>a.forEach(x=>plainMap[x]=c));
+  numberedBooks.forEach(([c,a])=>a.forEach(x=>numMap[x]=c));
+  const toPattern = names => names.sort((a,b)=>b.length-a.length)
+    .map(n=>n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/ /g,"\\s+")).join("|");
+  const plainNames = toPattern(Object.keys(plainMap));
+  const numNames = toPattern(Object.keys(numMap));
+  const VERSE = "\\d{1,3}:\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3}(?::\\s*\\d{1,3})?)?(?:,\\d{1,3}(?:[-–—]\\d{1,3})?)*";
+  // Groups: 1 = number prefix, 2 = numbered book, 3 = plain book, 4 = chapter:verse part.
+  // Allows "Gal. 6:10", "II Peter 1:16-21", "I Samuel 12:23", "Psalm119:9-11", "Hebrews. 13:5".
+  const refRegex = new RegExp("\\b(?:((?:[1-3]|III|II|I)\\s?)(" + numNames + ")|(" + plainNames + "))\\.?\\s*(" + VERSE + ")","gi");
+  const contSource = "\\s*[;,]\\s*(" + VERSE + ")";   // "; 25:11" reuses the previous book
+
+  function canonicalBook(prefix,numName,plainName){
+    if(plainName) return plainMap[plainName.toLowerCase().replace(/\s+/g," ")];
+    const n = {"1":1,"i":1,"2":2,"ii":2,"3":3,"iii":3}[prefix.trim().toLowerCase()];
+    return n + " " + numMap[numName.toLowerCase()];
+  }
+  const cleanVerse = v => v.replace(/\s+/g,"").replace(/[–—]/g,"-");
 
   function linkReferences(root){
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -2012,65 +2039,45 @@ document.addEventListener("DOMContentLoaded",()=>{
     nodes.forEach(node=>{
       const text=node.nodeValue;
       const re=new RegExp(refRegex.source,"gi");
-      const frag=document.createDocumentFragment(); let last=0, m;
-      while((m=re.exec(text))){
-        frag.append(document.createTextNode(text.slice(last,m.index)));
+      const frag=document.createDocumentFragment(); let pos=0, m;
+      const addLink=(label,api)=>{
         const span=document.createElement("span");
-        span.className="bible-ref-link"; span.textContent=m[0]; span.tabIndex=0;
-        span.setAttribute("role","button"); span.setAttribute("aria-label","Read "+m[0]+" in the King James Bible");
-        span.dataset.bibleRef=m[0]; frag.append(span); last=re.lastIndex;
+        span.className="bible-ref-link"; span.textContent=label; span.tabIndex=0;
+        span.setAttribute("role","button"); span.setAttribute("aria-label","Read "+label+" in the King James Bible");
+        span.dataset.bibleRef=label; span.dataset.bibleApi=api; frag.append(span);
+      };
+      while((m=re.exec(text))){
+        const book = canonicalBook(m[1],m[2],m[3]);
+        if(!book) continue;
+        frag.append(document.createTextNode(text.slice(pos,m.index)));
+        addLink(text.slice(m.index,re.lastIndex), book+" "+cleanVerse(m[4]));
+        let end=re.lastIndex, c;
+        const cont=new RegExp(contSource,"y");
+        for(;;){
+          cont.lastIndex=end;
+          c=cont.exec(text);
+          if(!c) break;
+          const verseStart=end + c[0].length - c[1].length;
+          frag.append(document.createTextNode(text.slice(end,verseStart)));
+          addLink(c[1], book+" "+cleanVerse(c[1]));
+          end=cont.lastIndex;
+        }
+        pos=end; re.lastIndex=end;
       }
-      frag.append(document.createTextNode(text.slice(last)));
+      frag.append(document.createTextNode(text.slice(pos)));
       node.parentNode.replaceChild(frag,node);
     });
   }
 
-  function openModal(ref){
+  function openModal(label, apiRef){
     modal.classList.add("open");
     document.body.style.overflow="hidden";
     title.textContent="King James Version (KJV)";
-    refLabel.textContent=ref;
+    refLabel.textContent=label;
     verseText.textContent="";
     status.textContent="Loading verse…";
     closeBtn.focus();
-
-    // Normalize abbreviations and fetch each reference separately. This also handles
-    // combined references such as "Prov. 7:2; 25:11" without sending the whole string to the API.
-    function splitReferences(raw){
-      const clean = raw.replace(/[–—]/g,"-").replace(/\s+/g," ").trim();
-      const first = clean.match(/^(.+?)\s+(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)(.*)$/i);
-      if(!first) return [clean];
-      const book = canonicalBook(first[1]);
-      const refs = [book + " " + first[2].replace(/\s*-\s*/g,"-")];
-      const rest = first[3] || "";
-      rest.split(/[;,]/).forEach(part=>{
-        const piece = part.trim();
-        if(!piece) return;
-        const withBook = piece.match(/^(.+?)\s+(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)$/i);
-        const chapterVerse = piece.match(/^(\d{1,3}:\d{1,3}(?:\s*-\s*\d{1,3}(?::\d{1,3})?)?)$/);
-        if(withBook) refs.push(canonicalBook(withBook[1]) + " " + withBook[2].replace(/\s*-\s*/g,"-"));
-        else if(chapterVerse) refs.push(book + " " + chapterVerse[1].replace(/\s*-\s*/g,"-"));
-      });
-      return [...new Set(refs)];
-    }
-    function canonicalBook(rawBook){
-      const b = rawBook.replace(/\./g,"").replace(/\s+/g," ").trim().toLowerCase();
-      const aliases = {
-        "prov":"Proverbs", "proverb":"Proverbs", "proverbs":"Proverbs",
-        "psalm":"Psalms", "psalms":"Psalms",
-        "song of solomon":"Song of Solomon", "song of songs":"Song of Solomon",
-        "rev":"Revelation", "revelation":"Revelation",
-        "gen":"Genesis", "ex":"Exodus", "deut":"Deuteronomy", "ps":"Psalms",
-        "matt":"Matthew", "mk":"Mark", "lk":"Luke", "jn":"John", "rom":"Romans",
-        "1 cor":"1 Corinthians", "2 cor":"2 Corinthians", "1 thess":"1 Thessalonians", "2 thess":"2 Thessalonians",
-        "1 tim":"1 Timothy", "2 tim":"2 Timothy", "1 pet":"1 Peter", "2 pet":"2 Peter",
-        "1 sam":"1 Samuel", "2 sam":"2 Samuel", "1 kings":"1 Kings", "2 kings":"2 Kings",
-        "1 chr":"1 Chronicles", "2 chr":"2 Chronicles"
-      };
-      if(aliases[b]) return aliases[b];
-      return rawBook.replace(/\./g,"").replace(/\s+/g," ").trim().replace(/\b\w/g,c=>c.toUpperCase());
-    }
-    const refs = splitReferences(ref);
+    const refs=[apiRef];
     Promise.all(refs.map(apiRef =>
       fetch("https://bible-api.com/"+encodeURIComponent(apiRef)+"?translation=kjv")
         .then(r=>{if(!r.ok) throw new Error("Verse unavailable: "+apiRef); return r.json();})
@@ -2084,17 +2091,17 @@ document.addEventListener("DOMContentLoaded",()=>{
       status.textContent="King James Version (KJV)";
     }).catch(()=>{
       verseText.textContent="";
-      status.textContent="This reference could not be retrieved. Check that the Bible reference is written correctly, then try again.";
+      status.textContent="This reference could not be retrieved. Check your internet connection, then try again.";
     });
   }
   function closeModal(){modal.classList.remove("open");document.body.style.overflow="";}
   body.addEventListener("click",e=>{
     const link=e.target.closest(".bible-ref-link");
-    if(link){e.preventDefault();openModal(link.dataset.bibleRef);}
+    if(link){e.preventDefault();openModal(link.dataset.bibleRef,link.dataset.bibleApi);}
   });
   body.addEventListener("keydown",e=>{
     const link=e.target.closest(".bible-ref-link");
-    if(link && (e.key==="Enter"||e.key===" ")){e.preventDefault();openModal(link.dataset.bibleRef);}
+    if(link && (e.key==="Enter"||e.key===" ")){e.preventDefault();openModal(link.dataset.bibleRef,link.dataset.bibleApi);}
   });
   closeBtn.addEventListener("click",closeModal);
   modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
@@ -2103,7 +2110,16 @@ document.addEventListener("DOMContentLoaded",()=>{
   // Re-scan whenever lesson content changes.
   const scan=()=>linkReferences(body);
   scan();
-  const observer=new MutationObserver(()=>{if(!body.querySelector(".bible-ref-link")) scan();});
+  let queued=false;
+  const observer=new MutationObserver(()=>{
+    if(queued) return; queued=true;
+    requestAnimationFrame(()=>{
+      queued=false;
+      observer.disconnect();          // avoid re-triggering ourselves while linking
+      scan();
+      observer.observe(body,{childList:true,subtree:true});
+    });
+  });
   observer.observe(body,{childList:true,subtree:true});
 });
 
