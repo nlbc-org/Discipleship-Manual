@@ -148,7 +148,7 @@ d.setAttribute("data-theme",t)})();
   .mverse{border-left:4px solid var(--fern);background:var(--sage);padding:12px 16px;
     margin:0 0 12px;border-radius:0 6px 6px 0}
   .mverse b{display:block;color:var(--soil);font-weight:normal;font-style:italic;margin-top:4px}
-  .point{margin:0 0 34px}
+  .point{margin:0 0 40px}
   .point h4{margin:0 0 5px;letter-spacing:-.015em;word-spacing:-.08em;font-size:1.45rem;line-height:1.4;color:var(--bark)}
   .point p{margin:0 0 6px}
   .intro{margin:0 0 20px}
@@ -370,6 +370,48 @@ d.setAttribute("data-theme",t)})();
 #bibleVerseStatus{font-size:.9rem;opacity:.75;margin-top:12px}
 #bibleVerseClose{border:0;border-radius:50%;width:36px;height:36px;flex:0 0 36px;font-size:1.4rem;cursor:pointer;background:rgba(128,128,128,.15);color:inherit}
 
+/* ===== Lesson text size: fluid scale for phones -> desktop (overrides earlier lesson sizes) ===== */
+.lesson{
+  --fs-body:clamp(1.06rem, 1rem + .3vw, 1.3rem);     /* ~17px phone -> ~21px large desktop */
+  --fs-small:clamp(.98rem, .94rem + .22vw, 1.15rem);
+  --fs-point:clamp(1.28rem, 1.15rem + .6vw, 1.7rem);
+  --fs-h2:clamp(1.5rem, 1.3rem + 1vw, 2.2rem);
+  --fs-block:clamp(1.15rem, 1.08rem + .35vw, 1.4rem);
+  line-height:1.55;
+}
+.lesson h2{font-size:var(--fs-h2);line-height:1.3}
+.lesson .ref{font-size:var(--fs-body);line-height:1.45}
+.lesson .block-title{font-size:var(--fs-block)}
+.lesson .desc,
+.lesson #lQuestion,
+.lesson .point p,
+.lesson .sub{font-size:var(--fs-body);line-height:1.75}
+.lesson .point h4{font-size:var(--fs-point);line-height:1.35}
+.lesson .intro,
+.lesson .verse,
+.lesson .mverse{font-size:var(--fs-small);line-height:1.75}
+.lesson .mverse b{font-size:var(--fs-small)}
+.lesson .nt-t,.lesson .nt-q{font-size:var(--fs-small)}
+.lesson input.blank{font-size:max(16px,1em)}
+/* blank line between the lettered items (A., B., C. ...) */
+.lesson .point > .sub{margin:0 0 .75em}
+.lesson .point > .sub:last-child{margin-bottom:0}
+/* same gap between the heading (I., II. ...) and A. as between A. and B. */
+.lesson .point h4{margin-bottom:1.1em}
+.lesson .point h4.sm{font-size:calc(var(--fs-point) * .85)}
+/* comfortable reading width on large screens */
+@media (min-width:1024px){
+  .lesson{max-width:860px;padding:44px 56px}
+}
+@media (min-width:1440px){
+  .lesson{max-width:920px}
+}
+/* keep phones full-width with tidy gutters */
+@media (max-width:640px){
+  .lesson{padding-left:18px;padding-right:18px}
+  .lesson h2{font-size:var(--fs-h2)}
+}
+
 </style>
 </head>
 <body>
@@ -532,7 +574,7 @@ const LESSONS = [
       subs:["“The Bible contains the mind of God, the state of man, the way of salvation, the doom of sinners and the happiness of believers. Its doctrines are holy, its precepts are binding, its histories are true and its decisions are immutable. \n\nRead it to be wise, believe it to be safe and practice it to be holy. It contains light to direct you, food to support you and comfort to cheer you. It is the traveler's map, the pilgrim's staff, the pilot's compass, the soldier's sword and the Christian's charter.\n\nHere paradise is restored, heaven opened and the gates of hell disclosed. Christ is its grand subject, our good its design and the glory of God its end. It should fill the memory, rule the heart and guide the feet.\n\nRead it slowly, frequently, prayerfully, it is a mine of wealth, a paradise of glory & a river of pleasure. It is given to you in life, will be open at the judgment and remembered forever. It involves the highest responsibility, rewards the greatest labor and condemns all who trifle with its holy contents.”",]},
  ],
 
-   q:"<b>A</b>. Where should I start reading? \n\nAs a Christian, focus on the primary places which deal with your new relationship with your Heavenly Father. The Gospel of John, the Epistle of I John & Psalm 119 are excellent places to begin.\n\n1. The Gospel of John is written that you might believe on the Lord Jesus Christ. John 20:31\n2. The Epistle of 1 John is written that you might have complete assurance of salvation. 1 John 5:13\n3. Psalm 119 is the greatest chapter in the Bible on a man's love for the Word of God.\n\n<b>B</b>. What if I find something I don't understand?\n\n1. Don't get upset about it. God will reveal it to you in time - when you are ready. John 16:12\n2. Be sure you live what you do understand. God will not give you more than you are capable of handling. As you put into practice the things you are learning, God will entrust you with more."},
+   q:"<b>A</b>. <u>Where should I start reading?</u> \n\nAs a Christian, focus on the primary places which deal with your new relationship with your Heavenly Father. The Gospel of John, the Epistle of I John & Psalm 119 are excellent places to begin.\n\n1. The Gospel of John is written that you might believe on the Lord Jesus Christ. John 20:31\n2. The Epistle of 1 John is written that you might have complete assurance of salvation. 1 John 5:13\n3. Psalm 119 is the greatest chapter in the Bible on a man's love for the Word of God.\n\n<b>B</b>. <u>What if I find something I don't understand?</u>\n\n1. Don't get upset about it. God will reveal it to you in time - when you are ready. John 16:12\n2. Be sure you live what you do understand. God will not give you more than you are capable of handling. As you put into practice the things you are learning, God will entrust you with more."},
 
    // ================================================================================
 
@@ -565,7 +607,7 @@ const LESSONS = [
       "The new life is perfectly summarized for you in 2 Corinthians 5:17-18, <i><b>“Therefore if any man be in Christ, he is a new creature; old things are passed away; behold, all things are become new. And all the things are of God, who hath reconciled us to himself by Jesus Christ...”</b></i>\n<b>1</b>. At the moment of your salvation, your old nature <u>died</u> and was <u>buried</u> with Christ. What <u>arose</u> out of the grave was something completely different than what went into the grave. You become a new creature with a new nature! Colossians 2:12, 3:3\n<b>2</b>. Upon your salvation, however, you did not receive a new <u>body</u> or new <u>mind</u>. That will be our future glory. Colossians 3:4\n <b>3</b>. Because our bodies (flesh) and our minds remember what we used to do, and how we used to think, they constantly seek to pull us toward sin.\n<b>4</b>. That is why Paul tells us that we must <i>\"mortify\"</i> (kill) the deeds of our body (Colossians 3:5), and <i>\"out off\"</i> the sins of the mind, (Colossians 3:8-9)."
      ]},
      
-     {title:"What is my relationshhip with God now?",
+     {title:"What is my relationship with God now?",
       subs:["He is your Heavenly Father, and you are His child. 1 John 2:1 says, <b><i>“My little children, these things write I unto you, that ye sin not. And if any man sin, we have an advocate with the Father, Jesus Christ the righteous”</b></i>.",
       "Now, that you are saved, God no longer deals with you as a sinner, He deals w/ you as a son.",
     "That relationship is pictured by the earthly relationship between a father and his son.\n<b>1</b>. A good father loves and cares for his son. 1 Peter 5:7\n<b>2</b>. A good father protects his son. Matthew 18:6\n<b>3</b>. A good father provides for his son. Philippians 4:19\n<b>4</b>. A good father guides and teaches his son. John 14:26\n <b>5</b>. A good father helps his son. Psalm 46:1\n <b>6</b>. A good father encourages his son. Philippians 4:13\n <b>7</b>. A good father disciplines his son. Hebrews 12:5-11\n <b>8</b>. A good father feeds his son. Matthew 4:4\n <b>9</b>. A good father has a plan for his son. Romans 8:28-29",
@@ -573,7 +615,7 @@ const LESSONS = [
 
  ],
 
-   q:"<b>A</b>. Will I sin after I am saved?\nYes, you still have a body of flesh. Romans 7:18\n\n <b>B</b>. How does my sin affect my relationship with my Father?\nGod does not kick you out of His family. When you sin, He disciplines you as a son. Hebrews 12:5-11\n\n <b>C</b>. What should I do when I sin?\nConfess it and trust the blood of Jesus Christ to cleanse you. 1 John 1:6-10; Proverbs 28:13"},
+   q:"<b>A</b>. <u>Will I sin after I am saved?</u>\nYes, you still have a body of flesh. Romans 7:18\n\n <b>B</b>. <u>How does my sin affect my relationship with my Father?</u>\nGod does not kick you out of His family. When you sin, He disciplines you as a son. Hebrews 12:5-11\n\n <b>C</b>. <u>What should I do when I sin?</u>\nConfess it and trust the blood of Jesus Christ to cleanse you. 1 John 1:6-10; Proverbs 28:13"},
 
   // =======================================================================================================
 
@@ -628,7 +670,7 @@ const LESSONS = [
 
  ],
 
-   q:"<b>A. How can I know for sure I am saved?</b>\nThe epistle of 1 John is written for this purpose. 1 John 5:13 says, <b><i>“These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life...”</i></b> As new Christian, 1 John should be a primary focal point to help you grow and to settle this issue.\n\n<b>B. What if I don't feel saved?</b>\n <b>1.</b> Your salvation is not based on feelings. It is based upon the objective factual truth of the Word of God. \n <b>a.</b> 1 John 3:20 says, <b><i>“For if our heart condemn us</i></b> (we think or feel unsaved),<b> <i>God is greater than our hearts and knoweth all things.”</i></b> God knows if you're saved, even if you don't. \n <b>b.</b> Titus 1:2 says, <b><i>“In hope of eternal life, which God, that cannot lie, promised before the world began.”</i></b>\n <b>2. JUST BELIEVE WHAT GOD HAS SAID!</b>"},
+   q:"<b>A. How can I know for sure I am saved?</b>\n\nThe epistle of 1 John is written for this purpose. 1 John 5:13 says, <b><i>“These things have I written unto you that believe on the name of the Son of God; that ye may know that ye have eternal life...”</i></b> As new Christian, 1 John should be a primary focal point to help you grow and to settle this issue.\n\n<b>B. What if I don't feel saved?</b>\n\n <b>1.</b> Your salvation is not based on feelings. It is based upon the objective factual truth of the Word of God. \n <b>a.</b> 1 John 3:20 says, <b><i>“For if our heart condemn us</i></b> (we think or feel unsaved),<b> <i>God is greater than our hearts and knoweth all things.”</i></b> God knows if you're saved, even if you don't. \n <b>b.</b> Titus 1:2 says, <b><i>“In hope of eternal life, which God, that cannot lie, promised before the world began.”</i></b>\n\n <b>2. JUST BELIEVE WHAT GOD HAS SAID!</b>"},
 
 // ===============================================================================
 
@@ -723,7 +765,7 @@ const LESSONS = [
    
  ],
 
-   q:"<b>A</b>. What is \"being filled with the Spirit\" and how can I accomplish this? \n\n<b>1</b>. Comparing Ephesians 5:18-19 and Colossians 3:16 shows that by getting in to the word of God letting it dwell in your heart, it produces the same results in your life as being filled w/ the Spirit. The more you saturate your mind w/ the Word of God, the closer your relationship to the Holy Spirit will be.\n<b>2</b>. Simply <u>WALK</u> in the Spirit. Walking is a steady, consistent, natural process of growth. Galatians 5:16-18,25; Romans 8:1\n<b>3</b>. Allow God to control your life. The filling of the Holy Spirit is <u>NOT</u> you getting more of the Holy Spirit. You got all of Him there is at the time of salvation. It is the Holy Spirit getting more of you.\n<b>4</b>. BE PATIENT AND CONSISTENT! Being controlled by the Holy Spirit does not happen overnight. It is a <u>lifelong process</u> of spiritual growth."},
+   q:"<b>A. What is “being filled with the Spirit” and how can I accomplish this?</b> \n\n<b>1</b>. Comparing Ephesians 5:18-19 and Colossians 3:16 shows that by getting in to the word of God letting it dwell in your heart, it produces the same results in your life as being filled w/ the Spirit. The more you saturate your mind w/ the Word of God, the closer your relationship to the Holy Spirit will be.\n\n<b>2</b>. Simply <u>WALK</u> in the Spirit. Walking is a steady, consistent, natural process of growth. Galatians 5:16-18,25; Romans 8:1\n\n<b>3</b>. Allow God to control your life. The filling of the Holy Spirit is <u>NOT</u> you getting more of the Holy Spirit. You got all of Him there is at the time of salvation. It is the Holy Spirit getting more of you.\n\n<b>4</b>. BE PATIENT AND CONSISTENT! Being controlled by the Holy Spirit does not happen overnight. It is a <u>lifelong process</u> of spiritual growth."},
 
 // ===============================================================================
 
@@ -774,7 +816,7 @@ const LESSONS = [
     ]},
  ],
 
- q: "<b>A</b>. Does God answer all my prayers?\nYes, but not always the ways you may want Him to, or at the time you want Him to. As we learned in Lesson 2, God is your Heavenly Father and all His ways are perfect. There will be times when in His infinite wisdom, the best answer to prayer will be “NO” or “NOT YET”. In those times, simply trust Him.\n\n <b>B</b>. How important is it to pray for others?\n1. Paul prayed for others continually (Romans 1:9) and requested prayer on many occasions.\n2. Samuel said it was a sin against God not to pray for others. I Samuel 12:23.\n3. An example of effectual prayer for others is how a preacher from England named George Muller prayed for the salvation of several people for up to 60 years. When he died, some were still unsaved. However, there were some saved at his funeral and many others were saved within the next year.\n4. Keep at it. The full results of your prayers will never be known completely in this life."},
+ q: "<b>A. Does God answer all my prayers?</b>\n\nYes, but not always the ways you may want Him to, or at the time you want Him to. As we learned in Lesson 2, God is your Heavenly Father and all His ways are perfect. There will be times when in His infinite wisdom, the best answer to prayer will be “NO” or “NOT YET”. In those times, simply trust Him.\n\n <b>B. How important is it to pray for others?</b>\n\n<b>1</b>. Paul prayed for others continually (Romans 1:9) and requested prayer on many occasions.\n\n<b>2</b>. Samuel said it was a sin against God not to pray for others. I Samuel 12:23.\n\n<b>3</b>. An example of effectual prayer for others is how a preacher from England named George Muller prayed for the salvation of several people for up to 60 years. When he died, some were still unsaved. However, there were some saved at his funeral and many others were saved within the next year.\n\n<b>4</b>. Keep at it. The full results of your prayers will never be known completely in this life."},
 // ===============================================================================
 
 {title: "The Will of God",
@@ -819,7 +861,7 @@ const LESSONS = [
     ]},
  ],
 
- q: "<b>A</b>. Why doesn’t God reveal His plan for me now?\n1. It would overwhelm you before you got started.\n2. You may not be equipped to handle it yet.\n3. You may not <u>be</u> the type of person God wants you to be yet.\n4. God will reveal what you can handle when you can handle it.\n5. This is illustrated by the old question asked of children, “What do you want to be when you grow up?” If all the five-year old in America were surveyed on this question, then forced to stick with their answer, in 20 years there would be nothing but firemen, policemen and nurses. As time goes on and you grow spiritually, your interests, talents and desires will grow and change. Be patient and wait on God while fulfilling His specific will for your life."},
+ q: "<b>A. Why doesn’t God reveal His plan for me now?</b>\n\n<b>1</b>. It would overwhelm you before you got started.\n<b>2</b>. You may not be equipped to handle it yet.\n<b>3</b>. You may not <u>be</u> the type of person God wants you to be yet.\n<b>4</b>. God will reveal what you can handle when you can handle it.\n<b>5</b>. This is illustrated by the old question asked of children, “What do you want to be when you grow up?” \nIf all the five-year old in America were surveyed on this question, then forced to stick with their answer, in 20 years there would be nothing but firemen, policemen and nurses. As time goes on and you grow spiritually, your interests, talents and desires will grow and change. Be patient and wait on God while fulfilling His specific will for your life."},
 // ===============================================================================
 
 {title: "The New Testament Church",
@@ -926,7 +968,7 @@ const LESSONS = [
      ]},
   ],
 
-  q: "<b>A</b>. What if another Christians offends me?\nUnfortunately, this will probably happen to you if you spend any time with your brothers and sisters in Jesus Christ. There will be times of offense, hurt, and disagreement within the body of Christ, just as in your physical family. If and when this happens, <u>if it is serious enough</u>, the Bible gives a definite progression of principles to deal with the matter. How should you respond in such a case?\n<b>1</b>. Take the offense directly to the other party <u>first</u>, privately, and try to settle it between yourselves. Matthew 18:15\n<b>2</b>. If the matter is not resolved privately, take it to a leader in your church to attempt to mediate the situation. Matthew 18:16; I Cor. 6:1-5\n<b>3</b>. Do <u>NOT</u> go to the unsaved to settle a problem within the body of Christ. I Corinthians 6:6\n<b>4</b>. If this matter still cannot be resolved:\n<b>a</b>) Personally accept the wrong. I Corinthians 6:7-8\n<b>b</b>) Commit the situation to the Lord Jesus Christ. He will handle it justly. I Peter 2:19-23\n<b>c</b>) Forgive your brother. Colossians 3:13\n<b>d</b>) Pray for your brother. Matthew 5:43-48; Romans 12:14"},
+  q: "<b>A. What if another Christians offends me?</b>\n\nUnfortunately, this will probably happen to you if you spend any time with your brothers and sisters in Jesus Christ. There will be times of offense, hurt, and disagreement within the body of Christ, just as in your physical family. If and when this happens, <u>if it is serious enough</u>, the Bible gives a definite progression of principles to deal with the matter. How should you respond in such a case?\n\n<b>1</b>. Take the offense directly to the other party <u>first</u>, privately, and try to settle it between yourselves. Matthew 18:15\n<b>2</b>. If the matter is not resolved privately, take it to a leader in your church to attempt to mediate the situation. Matthew 18:16; I Cor. 6:1-5\n<b>3</b>. Do <u>NOT</u> go to the unsaved to settle a problem within the body of Christ. I Corinthians 6:6\n<b>4</b>. If this matter still cannot be resolved:\n<b>a</b>) Personally accept the wrong. I Corinthians 6:7-8\n<b>b</b>) Commit the situation to the Lord Jesus Christ. He will handle it justly. I Peter 2:19-23\n<b>c</b>) Forgive your brother. Colossians 3:13\n<b>d</b>) Pray for your brother. Matthew 5:43-48; Romans 12:14"},
 
 // ===============================================================================
 
@@ -1511,7 +1553,7 @@ $("lDesc").innerHTML = formatText(desc);
   $("lPoints").innerHTML =
     points.map((p,n) => {
       const lbl = p.label !== undefined ? p.label : ROMAN[n];
-      return `<div class="point"><h4>${lbl ? esc(lbl) + ". " : ""}${formatText(p.title)}</h4>` +
+      return `<div class="point"><h4${p.small ? ' class="sm"' : ""}>${lbl ? esc(lbl) + ". " : ""}${formatText(p.title)}</h4>` +
        (p.body ? `<p>${formatText(p.body)}</p>` : "") +
         (p.subs && p.subs.length ? subsHtml(p.subs,0) : "") + `</div>`;
     }).join("");
