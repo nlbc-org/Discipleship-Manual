@@ -45,12 +45,12 @@ d.setAttribute("data-theme",t)})();
   }
   :root[data-theme="dark"]{
     color-scheme:dark;
-    --bark:#eef1ea; --soil:#b6bbb1; --parchment:#121412; --linen:#1b1e1b;
+    --bark:#eef1ea; --soil:#eef1ea; --parchment:#121412; --linen:#1b1e1b;
     --moss:#c4eabb; --fern:#a3d499; --sage:#222f21; --mint:#1d291c;
     --leaf:#c4eabb; --sand:#222522; --line:#343934; --accent:#8c8c8c;
     --on-moss:#182815; --field:#121412;
     --hdr-from:#3a3c3a; --hdr-to:#262826;
-    --hdr-text:#ffffff; --hdr-sub:#b3b8af;
+    --hdr-text:#ffffff; --hdr-sub:#eef1ea;
     --hdr-btn:rgba(255,255,255,.12); --hdr-btn-line:rgba(255,255,255,.28);
     --glow1:rgba(196,234,187,.11); --glow2:rgba(255,255,255,.05);
     --bar-track:rgba(255,255,255,.25); --bar-fill:linear-gradient(90deg,#c4eabb,#a3d499);
@@ -138,6 +138,8 @@ d.setAttribute("data-theme",t)})();
   .lesson.open{display:block}
   .back{background:none;border:none;color:var(--moss);padding:0;margin-bottom:16px;text-decoration:underline}
   .lesson h2{margin:0 0 4px;font-size:1.9rem;font-weight:bold}
+  .lesson{line-height:1.45}
+  .lesson .desc,.lesson #lQuestion,.lesson .point p,.lesson .sub{font-size:1.12rem}
   .lesson .ref{color:var(--moss);font-style:italic;font-weight:700;font-size:1.2rem;line-height:1.4;margin:0 0 20px}
   .verse{border-left:4px solid var(--fern);background:var(--sage);padding:12px 16px;margin:20px 0;border-radius:0 6px 6px 0}
   .lesson h4{margin:24px 0 6px;color:var(--soil)}
@@ -147,11 +149,11 @@ d.setAttribute("data-theme",t)})();
     margin:0 0 12px;border-radius:0 6px 6px 0}
   .mverse b{display:block;color:var(--soil);font-weight:normal;font-style:italic;margin-top:4px}
   .point{margin:0 0 34px}
-  .point h4{margin:0 0 14px;font-size:1.3rem;line-height:1.4;color:var(--bark)}
+  .point h4{margin:0 0 5px;font-size:1.45rem;line-height:1.4;color:var(--bark)}
   .point p{margin:0 0 6px}
   .intro{margin:0 0 20px}
-  .sub{display:flex;gap:8px;margin:8px 0}
-  .sub .lb{min-width:1.6em;color:var(--moss);font-weight:bold;flex-shrink:0}
+  .sub{display:flex;gap:.3em;margin:5px 0}
+  .sub .lb{min-width:1.15em;color:var(--moss);font-weight:bold;flex-shrink:0}
   textarea{width:100%;min-height:140px;padding:10px;border:1px solid var(--line);border-radius:6px;
     background:var(--field);font:inherit;color:inherit}
   .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
@@ -185,13 +187,17 @@ d.setAttribute("data-theme",t)})();
   @media (min-width:641px){
     .lesson{max-width:780px;padding:36px 40px}
     .lesson .ref{font-size:1.3rem}
-    .lesson .point p,.lesson .sub,.lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.08rem}
+    .lesson .point h4{font-size:1.55rem}
+    .lesson .desc,.lesson #lQuestion,.lesson .point p,.lesson .sub{font-size:1.2rem}
+    .lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.08rem}
   }
   @media (min-width:1024px){
     .lesson{max-width:900px;padding:44px 56px}
     .lesson h2{font-size:2.2rem}
     .lesson .ref{font-size:1.4rem}
-    .lesson .point p,.lesson .sub,.lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.15rem}
+    .lesson .point h4{font-size:1.7rem}
+    .lesson .desc,.lesson #lQuestion,.lesson .point p,.lesson .sub{font-size:1.28rem}
+    .lesson .intro,.lesson .verse,.lesson .mverse{font-size:1.15rem}
   }
   @media (min-width:1440px){
     main{max-width:1100px}
