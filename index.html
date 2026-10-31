@@ -316,7 +316,7 @@ d.setAttribute("data-theme",t)})();
   .lt-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
   .lt-btn:active:not(:disabled){transform:scale(.94)}
   .lt-btn:disabled{opacity:.35}
-  .lt-search{flex:1 1 220px;min-width:0;display:flex;align-items:center;gap:4px;background:var(--sand);border:1px solid var(--line);
+  .lt-search{flex:1 1 min(100%,260px);min-width:0;max-width:100%;display:flex;align-items:center;gap:4px;background:var(--sand);border:1px solid var(--line);
     border-radius:999px;padding:0 4px 0 12px;min-height:42px}
   .lt-search:focus-within{border-color:var(--moss);box-shadow:0 0 0 2px var(--sage)}
   .lt-search>svg{width:17px;height:17px;flex:none;fill:none;stroke:var(--soil);stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
@@ -325,6 +325,23 @@ d.setAttribute("data-theme",t)})();
   #srCount{flex:none;font-size:.82rem;color:var(--soil);white-space:nowrap;min-width:3.2em;text-align:right}
   .lt-search .lt-btn{width:34px;height:34px;border:none;background:transparent}
   .lt-search .lt-btn[hidden]{display:none}
+  #srInput{text-overflow:ellipsis}
+  #srCount:empty{display:none}
+  /* search bar scales with the screen: roomy on desktop, compact on phones, tiny on very narrow screens */
+  @media (min-width:641px){.lt-search{max-width:560px}}
+  @media (max-width:420px){
+    .lt-bar{gap:6px}
+    .lt-btn{width:40px;height:40px}
+    .lt-search{padding-left:10px;gap:2px}
+    .lt-search .lt-btn{width:32px;height:32px}
+    #srCount{font-size:.75rem;min-width:0}
+  }
+  @media (max-width:340px){
+    .lt-search>svg{display:none}
+    .lt-search{padding-left:12px}
+    .lt-search .lt-btn{width:30px;height:30px}
+    .lt-btn svg{width:17px;height:17px}
+  }
   mark.sr{background:rgba(255,170,40,.50);color:inherit;border-radius:3px;padding:1px 0;-webkit-box-decoration-break:clone;box-decoration-break:clone}
   mark.sr.cur{background:rgba(255,120,0,.85);outline:2px solid #e07000;outline-offset:0}
   :root[data-theme="dark"] mark.sr{background:rgba(255,170,40,.50)}
@@ -504,24 +521,22 @@ d.setAttribute("data-theme",t)})();
         }
         var st = {row:row, track:track, reverse:row.classList.contains("reverse"),
                   pos:0, w:0, inited:false, touching:false, hovered:false, resumeAt:0};
-        function later(){ st.resumeAt = performance.now() + 2500; }
+        function later(){ st.resumeAt = 0; }   // no delay: moves again the moment you let go
         row.addEventListener("touchstart", function(){ st.touching = true; }, {passive:true});
         row.addEventListener("touchend",   function(){ st.touching = false; later(); }, {passive:true});
         row.addEventListener("touchcancel",function(){ st.touching = false; later(); }, {passive:true});
-        row.addEventListener("wheel",      later, {passive:true});
-        row.addEventListener("pointerenter", function(e){ if(e.pointerType === "mouse") st.hovered = true; });
+                row.addEventListener("pointerenter", function(e){ if(e.pointerType === "mouse") st.hovered = true; });
         row.addEventListener("pointerleave", function(e){ if(e.pointerType === "mouse") st.hovered = false; });
         states.push(st);
       });
 
-      // tap / click a photo: zoom + caption + pause its row; tap again (or another photo) to release
+      // tap / click a photo: zoom + caption; the row keeps moving; tap again (or another photo) to release
       var rowsBox = document.querySelector(".photo-rows");
       if (rowsBox) rowsBox.addEventListener("click", function(e){
         var f = e.target.closest(".photo-frame"); if(!f) return;
         var on = !f.classList.contains("zoom");
         document.querySelectorAll(".photo-frame.zoom").forEach(function(x){ x.classList.remove("zoom"); });
-        document.querySelectorAll(".photo-row.held").forEach(function(x){ x.classList.remove("held"); });
-        if (on) { f.classList.add("zoom"); f.closest(".photo-row").classList.add("held"); }
+                if (on) f.classList.add("zoom");
       });
 
       var last = performance.now();
@@ -531,7 +546,7 @@ d.setAttribute("data-theme",t)})();
           var row = s.row, w = s.track.scrollWidth / SETS;
           if (!w) { s.inited = false; return; }               // list view hidden (a lesson is open)
           if (!s.inited || Math.abs(w - s.w) > 1) { s.w = w; s.pos = w; row.scrollLeft = w; s.inited = true; }
-          var paused = reduce || s.touching || s.hovered || now < s.resumeAt || row.classList.contains("held");
+          var paused = reduce || s.touching || s.hovered;   // only paused while a finger is down or the mouse is over the row
           if (paused) { s.pos = row.scrollLeft; }
           else { s.pos += (s.reverse ? -1 : 1) * dt * w / 60000; }   // one set per 60 s, same as before
           // keep inside the middle of the repeated strip (jump is invisible: every set is identical)
