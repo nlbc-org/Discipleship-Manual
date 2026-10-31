@@ -420,7 +420,7 @@ d.setAttribute("data-theme",t)})();
   .photo-row{overflow:hidden;border-radius:14px}
   .photo-track{display:flex;width:max-content;animation:photoSlide 60s linear infinite}
   .photo-row.reverse .photo-track{animation-direction:reverse}
-  .photo-row:hover .photo-track{animation-play-state:paused}
+  @media (hover:hover){.photo-row:hover .photo-track{animation-play-state:paused}}
   .photo-item{flex:0 0 auto;width:clamp(220px,32vw,360px);aspect-ratio:3/2;padding-right:14px;box-sizing:border-box}
   .photo-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:12px;background:var(--sand)}
   .photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
@@ -438,7 +438,12 @@ d.setAttribute("data-theme",t)})();
     background:linear-gradient(to top,rgba(30,70,26,.92),rgba(30,70,26,.5) 55%,transparent)}
   @media (hover:none){.photo-frame::after{opacity:1;transform:none}}
   @keyframes photoSlide{from{transform:translateX(0)}to{transform:translateX(-25%)}}
-  @media (prefers-reduced-motion:reduce){.photo-track{animation:none}}
+  /* reduced-motion: don't auto-slide, but let the row be swiped by hand */
+  @media (prefers-reduced-motion:reduce){
+    .photo-track{animation:none}
+    .photo-row{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .photo-row::-webkit-scrollbar{display:none}
+  }
 </style>
 </head>
 <body>
