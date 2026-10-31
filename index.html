@@ -149,7 +149,7 @@ d.setAttribute("data-theme",t)})();
     margin:0 0 12px;border-radius:0 6px 6px 0}
   .mverse b{display:block;color:var(--soil);font-weight:normal;font-style:italic;margin-top:4px}
   .point{margin:0 0 40px}
-  .point h4{margin:0 0 5px;letter-spacing:-.015em;word-spacing:-.08em;font-size:1.45rem;line-height:1.4;color:var(--bark)}
+  .point h4{margin:0 0 5px;letter-spacing:-.015em;word-spacing:.1em;font-size:1.45rem;line-height:1.4;color:var(--bark)}
   .point p{margin:0 0 6px}
   .intro{margin:0 0 20px}
   .sub{display:flex;gap:.3em;margin:5px 0}
@@ -177,7 +177,9 @@ d.setAttribute("data-theme",t)})();
   :root[data-theme="dark"] .card.done{background:#2a312a;border-left-color:#c4eabb}
   :root[data-theme="dark"] .card.done:hover,:root[data-theme="dark"] .card.done:active{background:#323a32;border-left-color:#c4eabb}
   /* dark mode: gray numbered circles (Six Goals) */
-  :root[data-theme="dark"] .goals .num{background:#343834;color:#d0d3cd;border-color:#8c908a}
+  :root[data-theme="dark"] .goals .num{background:#343834;color:#d0d3cd;border-color:#c4eabb}
+  /* dark mode: pale green top line on the Six Goals cards */
+  :root[data-theme="dark"] .goals li{border-top-color:#c4eabb}
   .back{min-height:44px;display:inline-flex;align-items:center;font-size:1rem}
   textarea{font-size:16px}
   .desc,.point p,.sub{hyphens:auto}
@@ -386,7 +388,7 @@ d.setAttribute("data-theme",t)})();
 .lesson #lQuestion,
 .lesson .point p,
 .lesson .sub{font-size:var(--fs-body);line-height:1.75}
-.lesson .point h4{font-size:var(--fs-point);line-height:1.35}
+.lesson .point h4{font-size:calc(var(--fs-point) * .9);line-height:1.35}
 .lesson .intro,
 .lesson .verse,
 .lesson .mverse{font-size:var(--fs-small);line-height:1.75}
@@ -398,7 +400,7 @@ d.setAttribute("data-theme",t)})();
 .lesson .point > .sub:last-child{margin-bottom:0}
 /* same gap between the heading (I., II. ...) and A. as between A. and B. */
 .lesson .point h4{margin-bottom:1.1em}
-.lesson .point h4.sm{font-size:calc(var(--fs-point) * .85)}
+.lesson .point h4.sm{font-size:calc(var(--fs-point) * .9)}
 /* comfortable reading width on large screens */
 @media (min-width:1024px){
   .lesson{max-width:860px;padding:44px 56px}
@@ -412,6 +414,31 @@ d.setAttribute("data-theme",t)})();
   .lesson h2{font-size:var(--fs-h2)}
 }
 
+
+  /* ===== Photo rows (two sliding rows, opposite directions) ===== */
+  .photo-rows{display:flex;flex-direction:column;gap:14px;margin:0 0 32px;overflow:hidden}
+  .photo-row{overflow:hidden;border-radius:14px}
+  .photo-track{display:flex;width:max-content;animation:photoSlide 60s linear infinite}
+  .photo-row.reverse .photo-track{animation-direction:reverse}
+  .photo-row:hover .photo-track{animation-play-state:paused}
+  .photo-item{flex:0 0 auto;width:clamp(220px,32vw,360px);aspect-ratio:3/2;padding-right:14px;box-sizing:border-box}
+  .photo-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:12px;background:var(--sand)}
+  .photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+  .photo-frame:hover img{transform:scale(1.12)}
+  .photo-frame::before{content:"";position:absolute;inset:0;border:2px solid var(--fern);border-radius:inherit;
+    opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:1}
+  .photo-frame:hover::before{opacity:1}
+  .photo-frame::after{content:attr(data-caption);position:absolute;left:0;right:0;bottom:0;padding:14px 12px 8px;
+    color:#fff;text-align:center;font-weight:400;font-style:italic;font-size:.8rem;letter-spacing:.02em;
+    background:linear-gradient(to top,rgba(0,0,0,.7),transparent);
+    opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;z-index:2}
+  .photo-frame:hover::after{opacity:1;transform:translateY(0)}
+  /* dark mode: dark green shadow, white text */
+  :root[data-theme="dark"] .photo-frame::after{
+    background:linear-gradient(to top,rgba(30,70,26,.92),rgba(30,70,26,.5) 55%,transparent)}
+  @media (hover:none){.photo-frame::after{opacity:1;transform:none}}
+  @keyframes photoSlide{from{transform:translateX(0)}to{transform:translateX(-25%)}}
+  @media (prefers-reduced-motion:reduce){.photo-track{animation:none}}
 </style>
 </head>
 <body>
@@ -432,6 +459,38 @@ d.setAttribute("data-theme",t)})();
 
 <main>
   <section id="listView" aria-label="Lessons">
+    <!-- ===== PHOTO ROWS =====
+         Replace each src below with your own picture (3 per row).
+         Row 1 slides left, Row 2 slides right. Copies for the loop are made automatically. -->
+    <div class="photo-rows" aria-label="Photos">
+      <div class="photo-row">
+        <div class="photo-track">
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2026"><img src="2_2nd_ Batch.jpg" alt="Batch 2026"></div></div>
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2025"><img src="3_1st_Batch.jpg" alt="Batch 2025"></div></div>
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2025"><img src="2_1st_Batch.jpg" alt="Batch 2025"></div></div>
+        </div>
+      </div>
+      <div class="photo-row reverse">
+        <div class="photo-track">
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2026"><img src="1_2nd_ Batch.jpg" alt="Batch 2026"></div></div>
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2025"><img src="3_1st_Batch.jpg" alt="Batch 2025"></div></div>
+          <div class="photo-item"><div class="photo-frame" data-caption="Batch 2026"><img src="2_2nd_ Batch.jpg" alt="Batch 2026"></div></div>
+        </div>
+      </div>
+    </div>
+    <script>
+    document.querySelectorAll(".photo-track").forEach(function(t){
+      var originals = Array.from(t.children);
+      for (var i = 0; i < 3; i++) {
+        originals.forEach(function(el){
+          var c = el.cloneNode(true);
+          c.setAttribute("aria-hidden","true");
+          t.appendChild(c);
+        });
+      }
+    });
+    </script>
+
     <h2 class="section-lesson">The Six Goals of Discipleship</h2>
     <ul class="goals" id="goals"></ul>
 
@@ -1013,10 +1072,10 @@ const LESSONS = [
 
     {title: "What does my money go for?",
      subs: [
-      "The support of the leaders of the church. I Corinthians 9:13-14; Galatians 6:6; I Timothy 5:17-18",
-      "Other works of God supported through your church. Philippians 4:15-16",
+      "The support of the leaders of the church. \nI Corinthians 9:13-14; Galatians 6:6; I Timothy 5:17-18",
+      "Other works of God supported through your church. \nPhilippians 4:15-16",
       "Support of those within the church body who are <u>UNABLE</u> to support themselves, and who have proven themselves <u>FAITHFUL</u> under the New Testament guidelines. Acts 6:1; I Timothy 5:16, 9-10",
-      "To meet general needs as determined by the leadership of your church. II Corinthians 8:4; Acts 11:27-30"
+      "To meet general needs as determined by the leadership of your church. \nII Corinthians 8:4; Acts 11:27-30"
      ]},
 
     {title: "What am I supposed to give?",
@@ -1041,7 +1100,7 @@ const LESSONS = [
      ]},
   ],
 
-  q: "<b>A</b>. How can I be sure I am giving to the right things and that my money (and time) is being used as God would have it?\n1. Build your giving (time, service, and money) around the local church. It is God’s ordained institution for this age.\n2. In most churches, a group of men are entrusted with the responsibility of handling the financial matters of the body. If you have prayerfully sought God’s leadership in choosing a local church, and you have followed the principles in His word in doing so, then you ought to trust the leaders of the church to handle this matter properly. If you have good reason to believe that the church’s resources are not being used <u>scripturally</u>, then speak to the individuals with that responsibility. If the matter is not answered to your satisfaction, then perhaps you should consider praying about seeking another church. II Corinthians 8:20-21."},
+  q: "<b>A. How can I be sure I am giving to the right things and that my money (and time) is being used as God would have it?</b>\n\n1. Build your giving (time, service, and money) around the local church. It is God’s ordained institution for this age.\n2. In most churches, a group of men are entrusted with the responsibility of handling the financial matters of the body. If you have prayerfully sought God’s leadership in choosing a local church, and you have followed the principles in His word in doing so, then you ought to trust the leaders of the church to handle this matter properly. If you have good reason to believe that the church’s resources are not being used <u>scripturally</u>, then speak to the individuals with that responsibility. If the matter is not answered to your satisfaction, then perhaps you should consider praying about seeking another church. II Corinthians 8:20-21."},
 
 // ===============================================================================
 
@@ -1067,7 +1126,7 @@ const LESSONS = [
     {title: "You do NOT have to be poor to please God!",
      subs: [
       "This is very important to understand. Spirituality is NOT measured by either the abundance OR lack of material goods. Nowhere in the Bible does God specifically condemn anyone simply for having money. Instead, he deals with their attitude.",
-      "The Bible does NOT say that money is the root of all evil. It says, “... <i>the <u>love</u> of money is the root of all evil...</i>” I Timothy 6:10.",
+      "The Bible does NOT say that money is the root of all evil. It says, <b>“... <i>the <u>love</u> of money is the root of all evil...</i>”</b> I Timothy 6:10.",
       "Many godly Bible characters were wealthy.\n<b>1</b>. Solomon was the wealthiest man in history, yet observe his conclusion of this matter. Ecclesiastes 12:13-14.\n<b>2</b>. Job was the wealthiest man of his day (Job 1:3), yet when all his wealth was gone, observe his attitude. Job 1:21-22\n<b>3</b>. Even the Lord Jesus Christ was accompanied by a group of wealthy women who provided for him materially. Luke 8:1-3; John 12:3"
      ]},
 
@@ -1093,12 +1152,12 @@ const LESSONS = [
 
     {title: "You must strike a proper balance in your attitude toward money and possession.",
      subs: [
-      "Proverbs 11:1 says, “<i>A false balance is abomination to the Lord...</i>”\n<b>1</b>. The same Bible that says not to worry about your physical provisions in Matthew 6:25-34, also says that if a man doesn’t provide for his family he is worse than an infidel in I Timothy 5:8\n<b>2</b>. The same Bible says “<i>the love of money is the root of all evil...</i>” also says, “<i>... the laborer is worthy of his reward.</i>” I Timothy 5:17-18",
+      "Proverbs 11:1 says, <b>“<i>A false balance is abomination to the Lord...</i>”</b>\n<b>1</b>. The same Bible that says not to worry about your physical provisions in Matthew 6:25-34, also says that if a man doesn’t provide for his family he is worse than an infidel in I Timothy 5:8\n<b>2</b>. The same Bible says <b>“<i>the love of money is the root of all evil...</i>”</b> also says, <b>“<i>... the laborer is worthy of his reward.</i>”</b> I Timothy 5:17-18",
       "These are not contradictory statements, but balancing principles to show you how to handle physical possessions."
      ]},
   ],
 
-  q: "<b>A</b>. What will God provide for me?\n<b>1</b>. God promises to provide your NEEDS. Phil. 4:19; Matthew 6:25-34\n<b>2</b>. Those NEEDS will be physical as well as spiritual.\n<b>3</b>. You must discern between NEEDS and WANTS. This is a very difficult thing to do, especially in our society. Compare the following verses on needs and wants.\n<b>a</b>. Needs – James 2:15-16; Hebrews 4:15-16; Mark 2:25\n<b>b</b>. Wants – Psalm 23:1; Proverbs 13:25; Philippians 4:11; James 1:4"},
+  q: "<b>A. What will God provide for me?</b>\n<b>1</b>. God promises to provide your NEEDS. Phil. 4:19; Matthew 6:25-34\n<b>2</b>. Those NEEDS will be physical as well as spiritual.\n<b>3</b>. You must discern between NEEDS and WANTS. This is a very difficult thing to do, especially in our society. Compare the following verses on needs and wants.\n<b>a</b>. Needs – James 2:15-16; Hebrews 4:15-16; Mark 2:25\n<b>b</b>. Wants – Psalm 23:1; Proverbs 13:25; Philippians 4:11; James 1:4"},
 
 // ===============================================================================
 
@@ -1130,7 +1189,7 @@ const LESSONS = [
 
     {title: "Why do I sin?",
      subs: [
-      "You sin because though you received a new nature at your salvation, you did not receive a new body or a new mind. Romans 6:6-13; Ephesians 4:21-24; Colossians 3:1a, 5, 8-9",
+      "You sin because though you received a new nature at your salvation, you did not receive a new body or a new mind. Romans 6:6-13; Ephesians 4:21-24; Colossians 3:1, 5, 8-9",
       "You sin because your flesh draws you into sin. James 1:13-15; Romans 7:14:25; Galatians 5:16-17",
       "You sin as a result of temptation in three major areas which are outlined in I John 2:15-16. Jesus was also tempted in these three areas, yet without sin as stated in Hebrews 4:15.\n<b>1</b>. <i>The lust of the flesh</i> – Eve was tempted in this point in Genesis 3:6, when she saw that the tree was <b>“<i>good for food</i>”</b>. Jesus was tempted in this point Matthew 4:3, when the devil tried to get Him to turn stones into bread.\n<b>2</b>. <i>The lust of the eyes</i> – Eve was tempted here when she saw the tree was <b>“<i>pleasant to the eyes</i>”</b>. Jesus was tempted when the devil showed Him all the kingdoms of the world and promised to give them to Him in exchange for worship.\n<b>3</b>. <i>The Pride of Life</i> – Eve fell to the temptation <b>“<i>to be desired to make one wise</i>”</b>. Jesus overcame the temptation to cast Himself down to prove the angel would take care of Him."
      ]},
@@ -1157,7 +1216,7 @@ const LESSONS = [
      ]},
   ],
 
-  q: "<b>A</b>. How do I keep the influences of a sinful world from affecting me?\n1. Don’t involve yourself with sinful activities. Of course, you must associate with unsaved people in order to try to win them, but don’t get involved in their sin. Ephesians 5:5-12\n2. Separate yourself from the ways of the world and follow the Lord Jesus Christ. II Corinthians 6:14-18; James 4:4\n3. Realize that “separation” is also a positive thing. Not only are you to separate from the world, but you are to separate yourself UNTO the gospel. Romans 1:1"},
+  q: "<b>A. How do I keep the influences of a sinful world from affecting me?</b>\n<b>1</b>. Don’t involve yourself with sinful activities. Of course, you must associate with unsaved people in order to try to win them, but don’t get involved in their sin. Ephesians 5:5-12\n<b>2</b>. Separate yourself from the ways of the world and follow the Lord Jesus Christ. II Corinthians 6:14-18; James 4:4\n<b>3</b>. Realize that “separation” is also a positive thing. Not only are you to separate from the world, but you are to separate yourself UNTO the gospel. Romans 1:1"},
 
 // ===============================================================================
 
@@ -1184,7 +1243,7 @@ const LESSONS = [
      subs: [
       "Personally, within your own life you are free to make your own choices. John 8:36; Romans 14:22; Titus 1:15.",
       "You are eternally secure in Jesus Christ. If you have genuinely placed your trust in Him as your Savior, you cannot go to hell. As we saw in Lesson 3, We entered a relationship with God by a spiritual birth, and our relationship is not determined by human accomplishments. Galatians 2:16; Ephesians 2:8-9",
-      "We are no longer bound by the laws of the Old Testament. We obey a higher law... “the law of the Spirit of life in Christ Jesus,” Which Romans 8:2 says has set us “<i>free from the law of sin and death</i>”. Galatians 3:24-27."
+      "We are no longer bound by the laws of the Old Testament. We obey a higher law... “the law of the Spirit of life in Christ Jesus,” Which Romans 8:2 says has set us <b>“<i>free from the law of sin and death</i>”</b>. Galatians 3:24-27."
      ]},
 
     {title: "We are free to do what we should!",
@@ -1221,7 +1280,7 @@ const LESSONS = [
      ]},
   ],
 
-  q: "<b>A</b>. How do I achieve a balance between my liberties and other people’s needs? <b>ONLY through the power of the Holy Spirit as you walk with Him.</b> II Corinthians 3:16 - 17; Romans 7:6"},
+  q: "<b>A</b>. <u>How do I achieve a balance between my liberties and other people’s needs?</u>\n<b>ONLY through the power of the Holy Spirit as you walk with Him.</b> \nII Corinthians 3:16 - 17; Romans 7:6"},
 
 // ===============================================================================
 
@@ -1236,7 +1295,7 @@ const LESSONS = [
     },
     {
       ref: "Mark 10:44-45",
-      text: "And whosoever of you will be the chiefest, shall be servant of all. For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."
+      text: "44 And whosoever of you will be the chiefest, shall be servant of all.\n45 For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many."
     },
     {
       ref: "Colossians 3:23",
@@ -1281,12 +1340,12 @@ const LESSONS = [
      subs: [
       "Do I treat my employees justly and equally? Do I set standards for them which I refuse to keep myself? Colossians 4:1; Ephesians 6:9",
       "Am I consumed by my own self-interests without considering the needs of those around me? Philippians 2:2-3",
-      "Am I trying to be a leader over to many things? Remember to consider the following points whenever a promotion or transfer opportunity presents itself:\n<b>1</b>. A great Bible principle is, “<i>he that is faithful in that which is least is faithful also in much...</i>” (Luke 16:10). Be sure you can handle what you have now.\n<b>2</b>. Realize the more responsibility you have, the more potential there is for problem to arise. James 3:1; Ecclesiastes 8:9\n<b>3</b>. Realize the more responsibilities you have, the more time and energy is demanded. Be sure your new responsibilities will not hinder your service for God. II Timothy 2:4",
+      "Am I trying to be a leader over to many things? Remember to consider the following points whenever a promotion or transfer opportunity presents itself:\n<b>1</b>. A great Bible principle is, <b>“<i>he that is faithful in that which is least is faithful also in much...</i>” </b>(Luke 16:10). Be sure you can handle what you have now.\n<b>2</b>. Realize the more responsibility you have, the more potential there is for problem to arise. James 3:1; Ecclesiastes 8:9\n<b>3</b>. Realize the more responsibilities you have, the more time and energy is demanded. Be sure your new responsibilities will not hinder your service for God. II Timothy 2:4",
       "Even in a position of leadership, you should always maintain the attitude of a servant. Mark 10:42-45."
      ]},
   ],
 
-  q: "<b>A</b>. What if my job conflicts with spiritual matters?\n<b>1</b>. There will always be some conflicts of priorities between church activities and your work schedule. You cannot quit your job or take off of work because of a few minor conflicts. Remember your job is a ministry opportunity. However, you must not use your job as an excuse to neglect your responsibilities to your church. You MUST maintain a balance in this area.\n<b>2</b>. When your job responsibilities are contrary to Bible principles, then you must draw a line:\n<b>a</b>) Refuse to lie or steal for your employer or violate other clear commandments of God.\n<b>b</b>) Guard against temptations on your job.\n<b>c</b>) Don’t be influenced by sinful activities around you.\n\n<b>B</b>. How do I handle “persecution” on the job?\n<b>1</b>. Most “persecution” in our culture is a result of Christian’s own ignorance or lack of personal surrender to the Lord. If you are being “persecuted”, it is for one of two reasons: your behavior is improper, or your proper testimony is an offense to someone. I Peter 3:16-17\n<b>2</b>. Expect a certain amount of adversity from the world if you are truly serving Jesus Christ. II Timothy 3:12\n<b>3</b>. Learn how to commit that adversity to the Lord. I Peter 2:18-23\n\n<b>C</b>. What should I consider when looking for employment?\n<b>1</b>. Have you taken the matter to God in prayer? James 1:5; Philippians 4:6-7\n<b>2</b>. Will the new responsibility destroy what God is trying to build in your life? This is a complex question. Don’t be afraid to seek wise counsel in this area from another brother in Christ you respect.\n<b>3</b>. If you are being asked to move to another city, is there a church there which can continue to provide your spiritual needs? This is an extremely critical point!\n<b>4</b>. In looking for a change of jobs, are you running away from something you should be facing and trying to correct?"},
+  q: "<b>A</b>. <u>What if my job conflicts with spiritual matters?</u>\n<b>1</b>. There will always be some conflicts of priorities between church activities and your work schedule. You cannot quit your job or take off of work because of a few minor conflicts. Remember your job is a ministry opportunity. However, you must not use your job as an excuse to neglect your responsibilities to your church. You MUST maintain a balance in this area.\n<b>2</b>. When your job responsibilities are contrary to Bible principles, then you must draw a line:\n<b>a</b>) Refuse to lie or steal for your employer or violate other clear commandments of God.\n<b>b</b>) Guard against temptations on your job.\n<b>c</b>) Don’t be influenced by sinful activities around you.\n\n<b>B</b>. <u>How do I handle “persecution” on the job?</u>\n<b>1</b>. Most “persecution” in our culture is a result of Christian’s own ignorance or lack of personal surrender to the Lord. If you are being “persecuted”, it is for one of two reasons: your behavior is improper, or your proper testimony is an offense to someone. I Peter 3:16-17\n<b>2</b>. Expect a certain amount of adversity from the world if you are truly serving Jesus Christ. II Timothy 3:12\n<b>3</b>. Learn how to commit that adversity to the Lord. I Peter 2:18-23\n\n<b>C</b>. <u>What should I consider when looking for employment?</u>\n<b>1</b>. Have you taken the matter to God in prayer? James 1:5; Philippians 4:6-7\n<b>2</b>. Will the new responsibility destroy what God is trying to build in your life? This is a complex question. Don’t be afraid to seek wise counsel in this area from another brother in Christ you respect.\n<b>3</b>. If you are being asked to move to another city, is there a church there which can continue to provide your spiritual needs? This is an extremely critical point!\n<b>4</b>. In looking for a change of jobs, are you running away from something you should be facing and trying to correct?"},
 
 // ===============================================================================
 
@@ -1351,7 +1410,7 @@ const LESSONS = [
      ]},
   ],
 
-  q: "<b>A</b>. What are my responsibilities to my government?\n<b>1</b>. Government is one of three institutions ordained by God; the other two being the family and the church. All earthly government and kingdoms have been given to Satan and are controlled by him (Luke 4:5-6) and, therefore, are essentially against God. However, you are to still to submit to the ordinance of God. Romans 13:1-2\n<b>2</b>. If you do what is right, you have no reason to fear. God will honor you for doing right. Romans 13:3-5\n<b>3</b>. Render to the government what is due by the law. Romans 13:6-7; Matthew 17:24-27, 22:15-22\n<b>4</b>. Submit to their ordinances. I Peter 2:13-15\n<b>5</b>. Honor those in authority, even the wicked, without partaking of their wickedness. Commit any adverse situations to God and let Him handle them. I Peter 2:17-23. When Peter wrote these words, Nero was king, perhaps the most wicked king in Rome ever had.\n<b>6</b>. Realize that you cannot legislate morals or change mankind through political action. Man is by nature fallen and sinful, and must be changed individually, from the inside out, through a personal saving knowledge of the Lord Jesus Christ. Titus 2:14"},
+  q: "<b>A. What are my responsibilities to my government?</b>\n<b>1</b>. Government is one of three institutions ordained by God; the other two being the family and the church. All earthly government and kingdoms have been given to Satan and are controlled by him (Luke 4:5-6) and, therefore, are essentially against God. However, you are to still to submit to the ordinance of God. Romans 13:1-2\n<b>2</b>. If you do what is right, you have no reason to fear. God will honor you for doing right. Romans 13:3-5\n<b>3</b>. Render to the government what is due by the law. Romans 13:6-7; Matthew 17:24-27, 22:15-22\n<b>4</b>. Submit to their ordinances. I Peter 2:13-15\n<b>5</b>. Honor those in authority, even the wicked, without partaking of their wickedness. Commit any adverse situations to God and let Him handle them. I Peter 2:17-23. When Peter wrote these words, Nero was king, perhaps the most wicked king in Rome ever had.\n<b>6</b>. Realize that you cannot legislate morals or change mankind through political action. Man is by nature fallen and sinful, and must be changed individually, from the inside out, through a personal saving knowledge of the Lord Jesus Christ. Titus 2:14"},
 
 // ===============================================================================
 
@@ -1396,15 +1455,15 @@ const LESSONS = [
 
     {title: "What rewards are obtainable at the Judgment seat of Christ can be seen by studying the five crowns in the New Testament:",
      subs: [
-      "<u><b>Crown of Righteousness</b></u> – II Timothy 4:8 – given to those who love the appearing of the Lord Jesus Christ.\n<b>1</b>. The Bible closes with “Even so, come, Lord Jesus.” Revelation 22:20\n<b>2</b>. Your overriding desire should be at all times, to be with the Lord. Philippians 1:23-24",
-      "<u><b>Crown of Life</b></u> – Revelation 2:10 – the martyr’s crown.\n<b>1</b>. Also seen in James 1:12 as given to those who endure temptation.\n<b>2</b>. This is the same as the martyr’s crown because you overcome temptation by dying to self. Romans 6:6-11.",
-      "<u><b>Incorruptible Crown</b></u> – I Corinthians 9:25 – given for temperance or moderation.\n<b>1</b>. The context of I Corinthians 9:18-27 deals with temperance or moderation in all matters (physical, spiritual and mental) to be a testimony to others.\n<b>2</b>. This is balanced by remembering that some have infirmities for the purpose of glorifying God. Paul is a great example. II Corinthians 12:7-10",
-      "<u><b>Crown of Rejoicing</b></u> – I Thessalonians 2:19 – the soul winner’s crown. Philippians 4:1\n<b>1</b>. Given to those who win people to Jesus Christ.\n<b>2</b>. Called the crown of rejoicing because it produces rejoicing in heaven when someone gets saved. Luke 15:7",
-      "<u><b>Crown of Glory</b></u> – I Peter 5:4 – the shepherd’s crown. Given to those who pastor or shepherd people in the Word of God.\n<b>1</b>. The New Testament is very clear that ALL saved people are to be actively teaching someone the Word of God, not just preachers. Ephesians 4:11-16\n<b>2</b>. It requires great wisdom which can only obtained through the Word of God. Proverbs 4:7-9"
+      "<i><u><b>Crown of Righteousness</b></u></i> – II Timothy 4:8 – given to those who love the appearing of the Lord Jesus Christ.\n<b>1</b>. The Bible closes with “Even so, come, Lord Jesus.” Revelation 22:20\n<b>2</b>. Your overriding desire should be at all times, to be with the Lord. Philippians 1:23-24",
+      "<i><u><b>Crown of Life</b></u></i> – Revelation 2:10 – the martyr’s crown.\n<b>1</b>. Also seen in James 1:12 as given to those who endure temptation.\n<b>2</b>. This is the same as the martyr’s crown because you overcome temptation by dying to self. Romans 6:6-11.",
+      "<i><u><b>Incorruptible Crown</b></u></i> – I Corinthians 9:25 – given for temperance or moderation.\n<b>1</b>. The context of I Corinthians 9:18-27 deals with temperance or moderation in all matters (physical, spiritual and mental) to be a testimony to others.\n<b>2</b>. This is balanced by remembering that some have infirmities for the purpose of glorifying God. Paul is a great example. II Corinthians 12:7-10",
+      "<i><u><b>Crown of Rejoicing</b></u></i> – I Thessalonians 2:19 – the soul winner’s crown. Philippians 4:1\n<b>1</b>. Given to those who win people to Jesus Christ.\n<b>2</b>. Called the crown of rejoicing because it produces rejoicing in heaven when someone gets saved. Luke 15:7",
+      "<i><u><b>Crown of Glory</b></u></i> – I Peter 5:4 – the shepherd’s crown. Given to those who pastor or shepherd people in the Word of God.\n<b>1</b>. The New Testament is very clear that ALL saved people are to be actively teaching someone the Word of God, not just preachers. Ephesians 4:11-16\n<b>2</b>. It requires great wisdom which can only obtained through the Word of God. Proverbs 4:7-9"
      ]},
   ],
 
-  q: "<b>A</b>. Why should I concern myself with the Judgment Seat of Christ?\n<b>1</b>. The focus on the return of the Lord Jesus Christ is one of the most practical doctrines for everyday living in the Bible. Notice in the following verses how many practical character qualities are produced by focusing in the return of the Lord Jesus Christ.\n<b>a</b>. Patience. James 5:7-8; II Thessalonians 3:5\n<b>b</b>. Peace. I Thessalonians 4:13-18\n<b>c</b>. Joy. I Thessalonians 2:19\n<b>d</b>. Holiness. I Thessalonians 3:13; I John 3:1-3\n<b>e</b>. Confidence. Philippians 1:6; I John 2:28\n<b>f</b>. Diligence in service. II Timothy 4:1-8\n<b>g</b>. Righteous living. Titus 2:11-14\n<b>h</b>. Faith even in difficult times. I Peter 1:5-7\n<b>2</b>. The rewards you receive on earth are all temporal and will perish. The rewards you receive at the Judgment Seat of Christ are eternal and will never perish. II Corinthians 4:17-5:4.\n<b>3</b>. By constantly focusing on the Judgment Seat of Christ, you will naturally develop a desire to please God rather than men. Developing this attitude is the surest way to handle criticism and opposition. II Corinthians 5:6-9; I Corinthians 7:23"},
+  q: "<b>A. Why should I concern myself with the Judgment Seat of Christ?</b>\n<b>1</b>. The focus on the return of the Lord Jesus Christ is one of the most practical doctrines for everyday living in the Bible. Notice in the following verses how many practical character qualities are produced by focusing in the return of the Lord Jesus Christ.\n<b>a</b>. Patience. James 5:7-8; II Thessalonians 3:5\n<b>b</b>. Peace. I Thessalonians 4:13-18\n<b>c</b>. Joy. I Thessalonians 2:19\n<b>d</b>. Holiness. I Thessalonians 3:13; I John 3:1-3\n<b>e</b>. Confidence. Philippians 1:6; I John 2:28\n<b>f</b>. Diligence in service. II Timothy 4:1-8\n<b>g</b>. Righteous living. Titus 2:11-14\n<b>h</b>. Faith even in difficult times. I Peter 1:5-7\n<b>2</b>. The rewards you receive on earth are all temporal and will perish. The rewards you receive at the Judgment Seat of Christ are eternal and will never perish. II Corinthians 4:17-5:4.\n<b>3</b>. By constantly focusing on the Judgment Seat of Christ, you will naturally develop a desire to please God rather than men. Developing this attitude is the surest way to handle criticism and opposition. II Corinthians 5:6-9; I Corinthians 7:23"},
 
 // ===============================================================================
 
