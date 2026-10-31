@@ -436,11 +436,10 @@ d.setAttribute("data-theme",t)})();
   /* dark mode: dark green shadow, white text */
   :root[data-theme="dark"] .photo-frame::after{
     background:linear-gradient(to top,rgba(30,70,26,.92),rgba(30,70,26,.5) 55%,transparent)}
-  /* touch phones: always show caption + shadow (some Android browsers wrongly report hover:hover, so also test pointer:coarse) */
-  @media (hover:none),(pointer:coarse){.photo-frame::after{opacity:1;transform:none}}
   /* touch phones: tap a photo to zoom it + outline it + pause the row; tap again to release */
   .photo-frame.zoom img{transform:scale(1.12)}
   .photo-frame.zoom::before{opacity:1}
+  .photo-frame.zoom::after{opacity:1;transform:translateY(0)}
   .photo-row.held .photo-track{animation-play-state:paused}
   @keyframes photoSlide{from{transform:translateX(0)}to{transform:translateX(-25%)}}
   /* reduced-motion: don't auto-slide, but let the row be swiped by hand */
