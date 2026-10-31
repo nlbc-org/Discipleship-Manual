@@ -436,7 +436,12 @@ d.setAttribute("data-theme",t)})();
   /* dark mode: dark green shadow, white text */
   :root[data-theme="dark"] .photo-frame::after{
     background:linear-gradient(to top,rgba(30,70,26,.92),rgba(30,70,26,.5) 55%,transparent)}
-  @media (hover:none){.photo-frame::after{opacity:1;transform:none}}
+  /* touch phones: always show caption + shadow (some Android browsers wrongly report hover:hover, so also test pointer:coarse) */
+  @media (hover:none),(pointer:coarse){.photo-frame::after{opacity:1;transform:none}}
+  /* touch phones: tap a photo to zoom it + outline it + pause the row; tap again to release */
+  .photo-frame.zoom img{transform:scale(1.12)}
+  .photo-frame.zoom::before{opacity:1}
+  .photo-row.held .photo-track{animation-play-state:paused}
   @keyframes photoSlide{from{transform:translateX(0)}to{transform:translateX(-25%)}}
   /* reduced-motion: don't auto-slide, but let the row be swiped by hand */
   @media (prefers-reduced-motion:reduce){
@@ -484,6 +489,13 @@ d.setAttribute("data-theme",t)})();
       </div>
     </div>
     <script>
+    document.querySelector(".photo-rows").addEventListener("click",function(e){
+      var f=e.target.closest(".photo-frame"); if(!f) return;
+      var on=!f.classList.contains("zoom");
+      document.querySelectorAll(".photo-frame.zoom").forEach(function(x){x.classList.remove("zoom");});
+      document.querySelectorAll(".photo-row.held").forEach(function(x){x.classList.remove("held");});
+      if(on){f.classList.add("zoom"); f.closest(".photo-row").classList.add("held");}
+    });
     document.querySelectorAll(".photo-track").forEach(function(t){
       var originals = Array.from(t.children);
       for (var i = 0; i < 3; i++) {
