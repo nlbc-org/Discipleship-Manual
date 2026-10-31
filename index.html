@@ -415,39 +415,36 @@ d.setAttribute("data-theme",t)})();
 }
 
 
-  /* ===== Photo rows (two sliding rows, opposite directions) ===== */
+  /* ===== Photo rows (two auto-scrolling rows, opposite directions; also swipeable by hand) ===== */
   .photo-rows{display:flex;flex-direction:column;gap:14px;margin:0 0 32px;overflow:hidden}
-  .photo-row{overflow:hidden;border-radius:14px}
-  .photo-track{display:flex;width:max-content;animation:photoSlide 60s linear infinite}
-  .photo-row.reverse .photo-track{animation-direction:reverse}
-  @media (hover:hover){.photo-row:hover .photo-track{animation-play-state:paused}}
+  .photo-row{overflow-x:auto;overflow-y:hidden;border-radius:14px;scroll-behavior:auto;
+    scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .photo-row::-webkit-scrollbar{display:none}
+  .photo-track{display:flex;width:max-content}
   .photo-item{flex:0 0 auto;width:clamp(220px,32vw,360px);aspect-ratio:3/2;padding-right:14px;box-sizing:border-box}
-  .photo-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:12px;background:var(--sand)}
+  .photo-frame{position:relative;width:100%;height:100%;overflow:hidden;border-radius:12px;background:var(--sand);
+    -webkit-tap-highlight-color:transparent;cursor:pointer}
   .photo-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
-  .photo-frame:hover img{transform:scale(1.12)}
+  /* outline + caption + shadow: hidden by default, shown only on hover (mouse) or tap (touch) */
   .photo-frame::before{content:"";position:absolute;inset:0;border:2px solid var(--fern);border-radius:inherit;
     opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:1}
-  .photo-frame:hover::before{opacity:1}
   .photo-frame::after{content:attr(data-caption);position:absolute;left:0;right:0;bottom:0;padding:14px 12px 8px;
     color:#fff;text-align:center;font-weight:400;font-style:italic;font-size:.8rem;letter-spacing:.02em;
     background:linear-gradient(to top,rgba(0,0,0,.7),transparent);
     opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease;pointer-events:none;z-index:2}
-  .photo-frame:hover::after{opacity:1;transform:translateY(0)}
   /* dark mode: dark green shadow, white text */
   :root[data-theme="dark"] .photo-frame::after{
     background:linear-gradient(to top,rgba(30,70,26,.92),rgba(30,70,26,.5) 55%,transparent)}
-  /* touch phones: tap a photo to zoom it + outline it + pause the row; tap again to release */
+  /* real mouse only (phones that fake "hover" on tap are excluded by pointer:fine) */
+  @media (hover:hover) and (pointer:fine){
+    .photo-frame:hover img{transform:scale(1.12)}
+    .photo-frame:hover::before{opacity:1}
+    .photo-frame:hover::after{opacity:1;transform:translateY(0)}
+  }
+  /* tap/click a photo: zoom + outline + caption (class added by script; tap again to release) */
   .photo-frame.zoom img{transform:scale(1.12)}
   .photo-frame.zoom::before{opacity:1}
   .photo-frame.zoom::after{opacity:1;transform:translateY(0)}
-  .photo-row.held .photo-track{animation-play-state:paused}
-  @keyframes photoSlide{from{transform:translateX(0)}to{transform:translateX(-25%)}}
-  /* reduced-motion: don't auto-slide, but let the row be swiped by hand */
-  @media (prefers-reduced-motion:reduce){
-    .photo-track{animation:none}
-    .photo-row{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-    .photo-row::-webkit-scrollbar{display:none}
-  }
 </style>
 </head>
 <body>
@@ -488,23 +485,65 @@ d.setAttribute("data-theme",t)})();
       </div>
     </div>
     <script>
-    document.querySelector(".photo-rows").addEventListener("click",function(e){
-      var f=e.target.closest(".photo-frame"); if(!f) return;
-      var on=!f.classList.contains("zoom");
-      document.querySelectorAll(".photo-frame.zoom").forEach(function(x){x.classList.remove("zoom");});
-      document.querySelectorAll(".photo-row.held").forEach(function(x){x.classList.remove("held");});
-      if(on){f.classList.add("zoom"); f.closest(".photo-row").classList.add("held");}
-    });
-    document.querySelectorAll(".photo-track").forEach(function(t){
-      var originals = Array.from(t.children);
-      for (var i = 0; i < 3; i++) {
-        originals.forEach(function(el){
-          var c = el.cloneNode(true);
-          c.setAttribute("aria-hidden","true");
-          t.appendChild(c);
+    (function(){
+      var RESPECT_REDUCED_MOTION = false;   // set true to stop auto-scroll for phones with "reduce motion" on
+      var SETS = 6;                          // 1 original set + 5 copies, so the loop never runs out
+      var reduce = RESPECT_REDUCED_MOTION && window.matchMedia &&
+                   matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var states = [];
+
+      document.querySelectorAll(".photo-row").forEach(function(row){
+        var track = row.querySelector(".photo-track");
+        var originals = Array.from(track.children);
+        for (var i = 0; i < SETS - 1; i++) {
+          originals.forEach(function(el){
+            var c = el.cloneNode(true);
+            c.setAttribute("aria-hidden","true");
+            track.appendChild(c);
+          });
+        }
+        var st = {row:row, track:track, reverse:row.classList.contains("reverse"),
+                  pos:0, w:0, inited:false, touching:false, hovered:false, resumeAt:0};
+        function later(){ st.resumeAt = performance.now() + 2500; }
+        row.addEventListener("touchstart", function(){ st.touching = true; }, {passive:true});
+        row.addEventListener("touchend",   function(){ st.touching = false; later(); }, {passive:true});
+        row.addEventListener("touchcancel",function(){ st.touching = false; later(); }, {passive:true});
+        row.addEventListener("wheel",      later, {passive:true});
+        row.addEventListener("pointerenter", function(e){ if(e.pointerType === "mouse") st.hovered = true; });
+        row.addEventListener("pointerleave", function(e){ if(e.pointerType === "mouse") st.hovered = false; });
+        states.push(st);
+      });
+
+      // tap / click a photo: zoom + caption + pause its row; tap again (or another photo) to release
+      var rowsBox = document.querySelector(".photo-rows");
+      if (rowsBox) rowsBox.addEventListener("click", function(e){
+        var f = e.target.closest(".photo-frame"); if(!f) return;
+        var on = !f.classList.contains("zoom");
+        document.querySelectorAll(".photo-frame.zoom").forEach(function(x){ x.classList.remove("zoom"); });
+        document.querySelectorAll(".photo-row.held").forEach(function(x){ x.classList.remove("held"); });
+        if (on) { f.classList.add("zoom"); f.closest(".photo-row").classList.add("held"); }
+      });
+
+      var last = performance.now();
+      function tick(now){
+        var dt = Math.min(now - last, 100); last = now;
+        states.forEach(function(s){
+          var row = s.row, w = s.track.scrollWidth / SETS;
+          if (!w) { s.inited = false; return; }               // list view hidden (a lesson is open)
+          if (!s.inited || Math.abs(w - s.w) > 1) { s.w = w; s.pos = w; row.scrollLeft = w; s.inited = true; }
+          var paused = reduce || s.touching || s.hovered || now < s.resumeAt || row.classList.contains("held");
+          if (paused) { s.pos = row.scrollLeft; }
+          else { s.pos += (s.reverse ? -1 : 1) * dt * w / 60000; }   // one set per 60 s, same as before
+          // keep inside the middle of the repeated strip (jump is invisible: every set is identical)
+          var wrapped = false;
+          if (s.pos >= 2.5 * w) { s.pos -= w; wrapped = true; }
+          else if (s.pos < 0.5 * w) { s.pos += w; wrapped = true; }
+          if (!paused || wrapped) row.scrollLeft = s.pos;
         });
+        requestAnimationFrame(tick);
       }
-    });
+      requestAnimationFrame(tick);
+    })();
     </script>
 
     <h2 class="section-lesson">The Six Goals of Discipleship</h2>
