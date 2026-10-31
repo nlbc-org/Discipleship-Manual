@@ -2250,6 +2250,49 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   }
 
+  // ---- Offline KJV: kjv.json holds the whole Bible, so verses open with no internet ----
+  let kjvPromise=null;
+  function loadKJV(){
+    if(!kjvPromise) kjvPromise=fetch("kjv.json").then(r=>{if(!r.ok) throw new Error("kjv"); return r.json();}).catch(()=>{kjvPromise=null; return null;});
+    return kjvPromise;
+  }
+  function localLookup(kjv, apiRef){
+    const m=/^(.+?)\s+(\d{1,3}):(.+)$/.exec(apiRef);
+    if(!m) return "";
+    const chapters=kjv[m[1]]; if(!chapters) return "";
+    const chapter=parseInt(m[2],10), lines=[];
+    const add=(c,from,to)=>{
+      const verses=chapters[c-1]; if(!verses) return;
+      for(let v=from; v<=Math.min(to,verses.length); v++) lines.push(v+" "+verses[v-1].trim());
+    };
+    m[3].split(",").forEach((part,i)=>{
+      part=part.trim();
+      let x;
+      if(i===0 && (x=/^(\d+)-(\d+):(\d+)$/.exec(part))){        // 1:1-2:3 across chapters
+        const a=+x[1], b=+x[2], c=+x[3];
+        add(chapter,a,999);
+        for(let ch=chapter+1; ch<b; ch++) add(ch,1,999);
+        add(b,1,c);
+      } else if((x=/^(\d+)(?:-(\d+))?$/.exec(part))){
+        add(chapter, +x[1], x[2]?+x[2]:+x[1]);
+      }
+    });
+    return lines.join("\n");
+  }
+  function getVerse(apiRef){
+    return loadKJV().then(kjv=>{
+      const text = kjv ? localLookup(kjv, apiRef) : "";
+      if(text) return {ref:apiRef,text};
+      return fetch("https://bible-api.com/"+encodeURIComponent(apiRef)+"?translation=kjv")
+        .then(r=>{if(!r.ok) throw new Error("Verse unavailable: "+apiRef); return r.json();})
+        .then(data=>{
+          const t=(data.verses||[]).map(v=>v.verse+" "+v.text.trim()).join("\n");
+          if(!t) throw new Error("No verse text returned: "+apiRef);
+          return {ref:apiRef,text:t};
+        });
+    });
+  }
+
   function openModal(label, apiRef){
     modal.classList.add("open");
     document.body.style.overflow="hidden";
@@ -2259,15 +2302,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     status.textContent="Loading verse…";
     closeBtn.focus();
     const refs=[apiRef];
-    Promise.all(refs.map(apiRef =>
-      fetch("https://bible-api.com/"+encodeURIComponent(apiRef)+"?translation=kjv")
-        .then(r=>{if(!r.ok) throw new Error("Verse unavailable: "+apiRef); return r.json();})
-        .then(data=>{
-          const text = (data.verses||[]).map(v=>v.verse+" "+v.text.trim()).join("\n");
-          if(!text) throw new Error("No verse text returned: "+apiRef);
-          return {ref:apiRef,text};
-        })
-    )).then(results=>{
+    Promise.all(refs.map(getVerse)).then(results=>{
       verseText.textContent=results.map(item=>item.text).join("\n\n");
       status.textContent="King James Version (KJV)";
     }).catch(()=>{
