@@ -1,31 +1,21 @@
 {
   "name": "Discipleship Program",
   "short_name": "Discipleship",
+  "description": "New Life Baptist Church Discipleship Program: 16 lessons with the full King James Bible built in, so you can study offline.",
   "start_url": "./index.html",
+  "id": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#f7f9f5",
   "theme_color": "#e2f5dd",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "books", "lifestyle"],
   "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "scope": "./",
-  "id": "./index.html"
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }
