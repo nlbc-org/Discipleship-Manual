@@ -2359,7 +2359,12 @@ renderGrid();
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').catch(function () {});
+    navigator.serviceWorker.register('sw.js').then(function () {
+      // Ask the browser not to delete the offline copy when storage runs low.
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().catch(function () {});
+      }
+    }).catch(function () {});
   });
 }
 </script>
