@@ -1,9 +1,9 @@
-const VERSION = 'v4';
+const VERSION = 'v5';
 const CORE_CACHE = 'discipleship-core-' + VERSION;
 const RUNTIME_CACHE = 'discipleship-runtime-' + VERSION;
 const NETWORK_TIMEOUT = 3500; // ms to wait for the network before using the saved copy
 
-const CORE = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './kjv.json'];
+const CORE = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/splash-small-512.png', './kjv.json'];
 
 // Batch photos: cached one by one so a missing file never breaks the install.
 const PHOTOS = ['2_2nd_ Batch.jpg', '3_1st_Batch.jpg', '2_1st_Batch.jpg', '1_2nd_ Batch.jpg'];
